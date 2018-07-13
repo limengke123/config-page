@@ -1,0 +1,47 @@
+{
+  "bookDetail": {
+    "baseInfo": {
+      "username": "456123",
+      "username2": 4,
+      "selectTest": "hei"
+    },
+    "userInfo": {
+      "username": "423321321",
+      "password": "1321321321"
+    },
+    "test": {
+      "word": "default test",
+      "testInput": "测试一下",
+      "numberTest": 4,
+      "selectTest": "zhangsan",
+      "selectMultipleTest": "zhangsan1",
+      "switchtest": false,
+      "radioGroup": "a",
+      "radioButton": "bb",
+      "datePicker": "2018-07-03"
+    }
+  },
+  "bookRecommend": {
+    "baseInfo": {
+      "username": "荐购"
+    },
+    "userInfo": {
+      "username": "1",
+      "password": "2"
+    },
+    "test": {
+      "word": "default test",
+      "testInput": "3",
+      "numberTest": 4,
+      "selectTest": "zhangsan",
+      "selectMultipleTest": [
+        "zhangsan1",
+        "hei1"
+      ],
+      "switchtest": true,
+      "radioGroup": "b",
+      "radioButton": "cc",
+      "datePicker": "2018-07-24"
+    }
+  }
+}
