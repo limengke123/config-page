@@ -6,24 +6,37 @@ import PageHeader from '../../components/page-header'
 import PageContent from '../../components/page-content'
 import {logoArr} from '../../localConfig'
 import {fetchApps} from '../../actions/base-info'
+import {axios} from '../../util'
 
-const titleMap = {
-    readerCenter: '读者中心',
-    opac: '图书检索',
-    bookDetail: '图书详情',
-    bookRecommend: '图书荐购',
-}
 
 class BaseInfo extends React.Component {
+    state = {
+        apps: {}
+    }
     componentDidMount () {
-        this.props.fetchApps()
+        axios.get('/api/getConfig')
+            .then(resp => {
+                if (resp.data ) {
+                    this.setState({
+                        apps: resp.data
+                    })
+                }
+            })
     }
     render () {
-        let data = this.props.apps
-        data = data.map((item, index) => ({
-            ...item,
+        // let data = this.props.apps
+        const {apps} = this.state
+        let stateData = Object.keys(apps).map(key => ({
+            ...apps[key],
+            type: key,
+            show: apps[key]['basicConfig']['show']
+        }))
+        console.log(stateData)
+        let data = Object.keys(window.config).map((key, index) => ({
+            show: stateData.filter(app => app.type === key)[0] ? stateData.filter(app => app.type === key)[0].show : false,
             logoSrc: logoArr[index],
-            title: titleMap[item.name]
+            title: window.config[key].name,
+            type: key
         }))
         return (
             <Fragment>

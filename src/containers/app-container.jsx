@@ -15,9 +15,8 @@ export default class AppContainer extends React.Component {
             collapsed: !this.state.collapsed
         })
     }
-    changePage = ({ item, key, keyPath }) => {
+    changePage = ({ item, key }) => {
         const {history} = this.props
-        // console.log(item, key, keyPath)
         history.push(key)
     }
     render () {

@@ -28,9 +28,10 @@ export default class AppPage extends React.Component {
     componentDidMount () {
         axios.get(`/api/getConfig?appName=${this.props.type}`).then(resp => {
             const fields = deepClone(this.state.fields)
+            let data = deepMerge(fields, processObj(resp.data.subConfig))
             if (resp.data) {
                 this.setState({
-                    fields: deepMerge(fields, processObj(resp.data))
+                    fields: data
                 })
             }
         })
@@ -44,7 +45,10 @@ export default class AppPage extends React.Component {
             })
         })
         axios.post('/api/saveConfig', {
-            [this.props.type]: fields
+            type: 'subConfig',
+            data: {
+                [this.props.type]: fields
+            }
         }).then(resp => {
             if (resp.data && resp.data.success === true) {
                 message.success('保存成功')

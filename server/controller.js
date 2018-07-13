@@ -6,10 +6,18 @@ const pageConfig = async (ctx) => {
 }
 
 const saveConfig = async (ctx) => {
-    const data = ctx.request.body
+    const {type, data} = ctx.request.body
     const config = require('./data/config')
     const key = Object.keys(data)[0]
-    config[key] = data[key]
+    if (!config[key]) config[key] = {}
+    if (type === 'subConfig') {
+        if (!config[key]['basicConfig']) config[key]['basicConfig'] = {show: false}
+        config[key]['subConfig'] = data[key]
+    } else if (type === 'basicConfig') {
+        if (!config[key]['subConfig']) config[key]['subConfig'] = {}
+        config[key]['basicConfig'] = data
+    }
+
     try {
         fs.unlinkSync(path.resolve(__dirname, './data/config.json'))
         fs.writeFileSync(path.resolve(__dirname, './data/config.json'), JSON.stringify(config), 'utf8')

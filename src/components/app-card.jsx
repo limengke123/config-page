@@ -6,11 +6,11 @@ import {toggleAppShow} from '../actions/base-info'
 
 const {Meta} = Card
 
-const mapDispatchToProps = dispatch => ({
-    toggleAppShow: (payload) => dispatch(toggleAppShow(payload))
-})
+// const mapDispatchToProps = dispatch => ({
+//     toggleAppShow: (payload) => dispatch(toggleAppShow(payload))
+// })
 
-@withRouter @connect(null, mapDispatchToProps)
+// @withRouter @connect(null, mapDispatchToProps)
 export default class AppCard extends React.Component {
 
     handleChange = (checked) => {
@@ -19,6 +19,10 @@ export default class AppCard extends React.Component {
             name: data.name,
             isShow: checked
         })
+    }
+
+    toggleAppShow () {
+
     }
 
     render () {

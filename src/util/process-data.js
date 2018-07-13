@@ -41,6 +41,7 @@ const processObj = (obj) => {
      * 处理时间格式成moment格式
      * */
     const reg = /\d{4}-\d{1,2}-\d{1,2}/g
+    if (!obj) obj = {}
 
     Object.keys(obj).forEach(key => {
         Object.keys(obj[key]).forEach(innerkey => {
