@@ -21,6 +21,7 @@ export default class AppContainer extends React.Component {
         history.push(key)
     }
     render () {
+        const icons = ['user', 'video-camera', 'upload', 'mail']
         return (
             <Layout>
                 <Sider
@@ -60,22 +61,17 @@ export default class AppContainer extends React.Component {
                                 <Icon type={'profile'}/>
                                 <span>应用信息</span>
                             </span>}>
-                            <Menu.Item key={'readerCenter'}>
-                                <Icon type={'user'}/>
-                                <span>读者中心</span>
-                            </Menu.Item>
-                            <Menu.Item key={'opac'}>
-                                <Icon type={'video-camera'}/>
-                                <span>图书检索</span>
-                            </Menu.Item>
-                            <Menu.Item key={'bookDetail'}>
-                                <Icon type={'upload'}/>
-                                <span>图书详情</span>
-                            </Menu.Item>
-                            <Menu.Item key={'bookRecommend'}>
-                                <Icon type={'mail'}/>
-                                <span>图书荐购</span>
-                            </Menu.Item>
+                            {
+                                /**
+                                 * 侧边栏遍历加载进去
+                                 * */
+                                Object.keys(window.config).map((app, index) => (
+                                    <Menu.Item key={app}>
+                                        <Icon type={icons[index]}/>
+                                        <span>{window.config[app].name}</span>
+                                    </Menu.Item>
+                                ))
+                            }
                         </Menu.SubMenu>
                     </Menu>
                 </Sider>
