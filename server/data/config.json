@@ -1,24 +1,94 @@
 {
   "readerCenter": {
-    "subConfig": {},
     "basicConfig": {
-      "show": false
+      "show": true
+    },
+    "subConfig": {
+      "baseInfo": {},
+      "userInfo": {
+        "username": "432423",
+        "password": "321321",
+        "password333": "543534"
+      },
+      "test": {
+        "test": "default test"
+      }
     }
   },
   "opac": {
-    "subConfig": {},
+    "subConfig": {
+      "baseInfo": {
+        "username": "default username",
+        "username2": "默认值"
+      },
+      "userInfo": {
+        "username": "default username",
+        "password": "default password"
+      },
+      "test": {
+        "word": "default test",
+        "testInput": "default test",
+        "numberTest": 3,
+        "selectTest": "zhangsan",
+        "selectMultipleTest": "zhangsan1",
+        "switchtest": true,
+        "radioGroup": "a",
+        "radioButton": "aa",
+        "datePicker": "2018-07-13"
+      }
+    },
     "basicConfig": {
       "show": true
     }
   },
   "bookRecommend": {
-    "subConfig": {},
+    "subConfig": {
+      "baseInfo": {
+        "username": "图书荐购"
+      },
+      "userInfo": {
+        "username": "default username",
+        "password": "default password"
+      },
+      "test": {
+        "word": "default test",
+        "testInput": "default test",
+        "numberTest": 3,
+        "selectTest": "zhangsan",
+        "selectMultipleTest": "zhangsan1",
+        "switchtest": true,
+        "radioGroup": "a",
+        "radioButton": "aa",
+        "datePicker": "2018-07-19"
+      }
+    },
     "basicConfig": {
       "show": true
     }
   },
   "bookDetail": {
-    "subConfig": {},
+    "subConfig": {
+      "baseInfo": {
+        "username": "default username",
+        "username2": 2,
+        "selectTest": "zhangsan"
+      },
+      "userInfo": {
+        "username": "default username",
+        "password": "default password"
+      },
+      "test": {
+        "word": "default test",
+        "testInput": "default test",
+        "numberTest": 3,
+        "selectTest": "zhangsan",
+        "selectMultipleTest": "zhangsan1",
+        "switchtest": true,
+        "radioGroup": "a",
+        "radioButton": "aa",
+        "datePicker": "2018-07-19"
+      }
+    },
     "basicConfig": {
       "show": true
     }

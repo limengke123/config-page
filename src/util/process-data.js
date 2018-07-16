@@ -1,4 +1,6 @@
 import moment from 'moment'
+
+// @deprecate
 const processData = (config) => {
     /**
      * 处理最初始的数据,拿到初始化的值
@@ -24,6 +26,27 @@ const processData = (config) => {
     return obj
 }
 
+const processData2 = (config) => {
+    /**
+     * 处理最初始的数据,拿到初始化的值
+     * string -> moment
+     * @param config {object} 初始的数据
+     * @return obj {object} 用于初始化state的对象
+     * */
+
+    let obj = {}
+
+    config.children && config.children.forEach(item => {
+        let _obj = {}
+        item.rules.forEach(_item => {
+            _obj[_item.fields] = _item.defaultValue
+        })
+        obj[item.fields] = _obj
+    })
+
+    return obj
+}
+
 const processTimeData = (value) => {
     /**
      * 处理date-picker返回回来的Moment类型的数据
@@ -36,10 +59,13 @@ const processTimeData = (value) => {
     // return value
 }
 
+
 const processObj = (obj) => {
     /**
      * 处理时间格式成moment格式
+     * 2018-12-5
      * */
+
     const reg = /\d{4}-\d{1,2}-\d{1,2}/g
     if (!obj) obj = {}
 
@@ -52,6 +78,7 @@ const processObj = (obj) => {
     })
     return obj
 }
+
 
 const isType = (obj, type) => {
     if (typeof obj !== 'object') return false
@@ -101,6 +128,7 @@ const deepClone = (obj) => {
 
 export {
     processData,
+    processData2,
     processTimeData,
     processObj,
     deepMerge,

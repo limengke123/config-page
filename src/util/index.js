@@ -1,9 +1,10 @@
 import axios from './ajax'
-import {processData, processTimeData, processObj, deepMerge, deepClone} from './process-data'
+import {processData, processData2, processTimeData, processObj, deepMerge, deepClone} from './process-data'
 
 export {
     axios,
     processData,
+    processData2,
     processTimeData,
     processObj,
     deepMerge,

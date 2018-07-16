@@ -40,14 +40,12 @@ class BaseInfo extends React.Component {
     }
 
     render () {
-        // let data = this.props.apps
         const {apps} = this.state
         let stateData = Object.keys(apps).map(key => ({
             ...apps[key],
             type: key,
             show: apps[key]['basicConfig']['show']
         }))
-        console.log(stateData)
         let data = Object.keys(window.config).map((key, index) => ({
             show: stateData.filter(app => app.type === key)[0] ? stateData.filter(app => app.type === key)[0].show : false,
             logoSrc: logoArr[index],

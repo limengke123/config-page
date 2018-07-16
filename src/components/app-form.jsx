@@ -1,5 +1,6 @@
 import React from 'react'
 import {Form, Input, Select, Switch, Radio, InputNumber, DatePicker, } from 'antd'
+import moment from "moment"
 import FormCard from './form-card'
 const FormItem = Form.Item
 const Option = Select.Option
@@ -113,6 +114,20 @@ class AppForm extends React.Component {
     }
 }
 
+const processObj1 = (str) => {
+    /**
+     * 处理时间格式成moment格式
+     * 2018-12-5
+     * */
+
+    const reg = /\d{4}-\d{1,2}-\d{1,2}/g
+    if (reg.test(str)) {
+        return moment(str)
+    } else {
+        return str
+    }
+}
+
 export default Form.create({
     onFieldsChange(props, changeFields) {
         props.onChange(changeFields)
@@ -123,7 +138,7 @@ export default Form.create({
             let tempObj = obj[subConfig.fields] = {}
             subConfig.rules.forEach(rule => {
                 tempObj[rule.fields] = Form.createFormField({
-                    value: props[subConfig.fields][rule.fields]
+                    value: processObj1(props.data[subConfig.fields][rule.fields])
                 })
             })
         })

@@ -4,13 +4,13 @@ import PageHeader from './page-header'
 import PageContent from './page-content'
 import AppForm from './app-form'
 import ToolBar from './tool-bar'
-import {axios, processData, processTimeData, processObj, deepMerge, deepClone} from '../util'
+import {axios, processData2, processTimeData, deepMerge, deepClone} from '../util'
 
 export default class AppPage extends React.Component {
     state = {
         fields: {
-            ...processData(window.config[this.props.type])
-        }
+            ...processData2(window.config[this.props.type])
+        },
     }
     handleFormChange = (changeFields) => {
         const outerKey = Object.keys(changeFields)[0]
@@ -28,8 +28,7 @@ export default class AppPage extends React.Component {
     componentDidMount () {
         axios.get(`/api/getConfig?appName=${this.props.type}`).then(resp => {
             const fields = deepClone(this.state.fields)
-            let data = deepMerge(fields, processObj(resp.data.subConfig))
-            console.log(data)
+            let data = deepMerge(fields, resp.data.subConfig)
             if (data) {
                 this.setState({
                     fields: data
@@ -67,7 +66,7 @@ export default class AppPage extends React.Component {
                     <p style={{marginBottom: 16}}>{window.config[this.props.type].description || '请根据需求设置 APP 对应具体配置。'}</p>
                 </PageHeader>
                 <PageContent>
-                    <AppForm onChange={this.handleFormChange} {...this.state.fields} type={this.props.type}/>
+                    <AppForm onChange={this.handleFormChange} data={this.state.fields} type={this.props.type}/>
                     <ToolBar onClick={this.handleClick}/>
                 </PageContent>
             </div>

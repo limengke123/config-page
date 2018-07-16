@@ -7,6 +7,13 @@
         "name": "基本配置",
         "fields": "baseInfo",
         "rules": [
+          {
+            "name": "基本信息",
+            "fields": "infos",
+            "isRequired": false,
+            "type": "input",
+            "defaultValue": "default infos"
+          }
         ]
       },
       {
@@ -23,6 +30,13 @@
           {
             "name": "密码",
             "fields": "password",
+            "isRequired": true,
+            "type": "input",
+            "defaultValue": "default password"
+          },
+          {
+            "name": "密码2",
+            "fields": "password333",
             "isRequired": true,
             "type": "input",
             "defaultValue": "default password"
@@ -241,7 +255,8 @@
             "name": "date-picker测试",
             "fields": "datePicker",
             "isRequired": false,
-            "type": "date-picker"
+            "type": "date-picker",
+            "defaultValue": "2018-07-15"
           }
         ]
       }
