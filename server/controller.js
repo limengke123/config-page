@@ -12,10 +12,10 @@ const saveConfig = async (ctx) => {
     if (!config[key]) config[key] = {}
     if (type === 'subConfig') {
         if (!config[key]['basicConfig']) config[key]['basicConfig'] = {show: false}
-        config[key]['subConfig'] = data[key]
+        config[key]['subConfig'] = data[key].subConfig
     } else if (type === 'basicConfig') {
         if (!config[key]['subConfig']) config[key]['subConfig'] = {}
-        config[key]['basicConfig'] = data
+        config[key]['basicConfig'] = data[key].basicConfig
     }
 
     try {

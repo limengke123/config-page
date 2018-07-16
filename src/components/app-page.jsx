@@ -29,7 +29,8 @@ export default class AppPage extends React.Component {
         axios.get(`/api/getConfig?appName=${this.props.type}`).then(resp => {
             const fields = deepClone(this.state.fields)
             let data = deepMerge(fields, processObj(resp.data.subConfig))
-            if (resp.data) {
+            console.log(data)
+            if (data) {
                 this.setState({
                     fields: data
                 })

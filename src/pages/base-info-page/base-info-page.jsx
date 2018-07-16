@@ -23,6 +23,22 @@ class BaseInfo extends React.Component {
                 }
             })
     }
+
+    handleShow = (type, show) => {
+        this.setState({
+            apps: {
+                ...this.state.apps,
+                [type]: {
+                    ...this.state.apps[type],
+                    basicConfig: {
+                        ...this.state.apps[type]['basicConfig'],
+                        show: show
+                    }
+                }
+            }
+        })
+    }
+
     render () {
         // let data = this.props.apps
         const {apps} = this.state
@@ -36,7 +52,8 @@ class BaseInfo extends React.Component {
             show: stateData.filter(app => app.type === key)[0] ? stateData.filter(app => app.type === key)[0].show : false,
             logoSrc: logoArr[index],
             title: window.config[key].name,
-            type: key
+            type: key,
+            handleShow: this.handleShow
         }))
         return (
             <Fragment>

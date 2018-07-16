@@ -120,7 +120,7 @@ export default Form.create({
     mapPropsToFields(props) {
         let obj = Object.create(null)
         window.config[props.type].children.forEach(subConfig => {
-            let tempObj = obj[subConfig.fields] = Object.create(null)
+            let tempObj = obj[subConfig.fields] = {}
             subConfig.rules.forEach(rule => {
                 tempObj[rule.fields] = Form.createFormField({
                     value: props[subConfig.fields][rule.fields]

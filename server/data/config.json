@@ -1,55 +1,26 @@
 {
-  "bookDetail": {
+  "readerCenter": {
+    "subConfig": {},
     "basicConfig": {
       "show": false
-    },
-    "subConfig": {
-      "baseInfo": {
-        "username": "default username",
-        "username2": 2,
-        "selectTest": "zhangsan"
-      },
-      "userInfo": {
-        "username": "default username",
-        "password": "default password"
-      },
-      "test": {
-        "word": "default test",
-        "testInput": "default test",
-        "numberTest": 3,
-        "selectTest": "zhangsan",
-        "selectMultipleTest": "zhangsan1",
-        "switchtest": true,
-        "radioGroup": "a",
-        "radioButton": "aa",
-        "datePicker": "2018-07-13"
-      }
     }
   },
   "opac": {
+    "subConfig": {},
     "basicConfig": {
-      "show": false
-    },
-    "subConfig": {
-      "baseInfo": {
-        "username": "heyheyhey",
-        "username2": "默认值"
-      },
-      "userInfo": {
-        "username": "default username",
-        "password": "default password"
-      },
-      "test": {
-        "word": "default test",
-        "testInput": "default test",
-        "numberTest": 3,
-        "selectTest": "zhangsan",
-        "selectMultipleTest": "zhangsan1",
-        "switchtest": true,
-        "radioGroup": "a",
-        "radioButton": "aa",
-        "datePicker": "2018-07-13"
-      }
+      "show": true
+    }
+  },
+  "bookRecommend": {
+    "subConfig": {},
+    "basicConfig": {
+      "show": true
+    }
+  },
+  "bookDetail": {
+    "subConfig": {},
+    "basicConfig": {
+      "show": true
     }
   }
 }
