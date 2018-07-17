@@ -1,11 +1,9 @@
 import React, {Fragment} from 'react'
 import {List} from 'antd'
-import {connect} from 'react-redux'
 import AppCard from '../../components/app-card'
 import PageHeader from '../../components/page-header'
 import PageContent from '../../components/page-content'
-import {logoArr} from '../../localConfig'
-import {fetchApps} from '../../actions/base-info'
+import {getLogo} from '../../localConfig/logo'
 import {axios} from '../../util'
 
 
@@ -25,13 +23,17 @@ class BaseInfo extends React.Component {
     }
 
     handleShow = (type, show) => {
+        let basicConfig = {}
+        if (this.state.apps[type] && !this.state.apps[type]['basicConfig']) {
+            basicConfig = this.state.apps[type]['basicConfig']
+        }
         this.setState({
             apps: {
                 ...this.state.apps,
                 [type]: {
                     ...this.state.apps[type],
                     basicConfig: {
-                        ...this.state.apps[type]['basicConfig'],
+                        ...basicConfig,
                         show: show
                     }
                 }
@@ -48,8 +50,9 @@ class BaseInfo extends React.Component {
         }))
         let data = Object.keys(window.config).map((key, index) => ({
             show: stateData.filter(app => app.type === key)[0] ? stateData.filter(app => app.type === key)[0].show : false,
-            logoSrc: logoArr[index],
+            logoSrc: getLogo(index),
             title: window.config[key].name,
+            description: window.config[key].description || '请根据需求设置 APP 对应具体配置。',
             type: key,
             handleShow: this.handleShow
         }))
@@ -61,7 +64,7 @@ class BaseInfo extends React.Component {
                 </PageHeader>
                 <PageContent>
                     <List
-                        grid={{gutter: 24, xs: 1, sm: 2, md:4, lg: 4, xl: 6, xxl: 3}}
+                        grid={{gutter: 24, xs:1, md:2, xl: 3, xxl: 4}}
                         dataSource={data}
                         renderItem={item => (
                             <List.Item>
@@ -75,14 +78,4 @@ class BaseInfo extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    apps: state.baseInfo.items
-})
-
-const mapDispatchToProps = dispatch => ({
-    fetchApps: () => {
-        dispatch(fetchApps())
-    }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(BaseInfo)
+export default BaseInfo

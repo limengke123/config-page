@@ -7,5 +7,20 @@ import logo6 from '../assets/image/6.png'
 import logo7 from '../assets/image/7.png'
 import logo8 from '../assets/image/8.png'
 
-export const logoArr = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8]
+
+
+const logoArr = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8]
+
+
+/**
+ * @param {Number} index 需要的图片索引
+ * @return {String} 对应索引地址
+ * */
+export const getLogo = (index) => {
+    /**
+     * 循环这8个logo图片
+     * 超过length
+     * */
+    return logoArr[index % logoArr.length]
+}
 

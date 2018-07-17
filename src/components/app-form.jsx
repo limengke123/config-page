@@ -9,7 +9,7 @@ const RadioGroup = Radio.Group
 
 const ruleToChildren = (rule) => {
     let subChildren
-    let fieldsConfig = Object.create(null)
+    let fieldsConfig = {}
     if (rule.type === 'input') {
         subChildren = <Input/>
         if (rule.isRequired) {
@@ -90,6 +90,7 @@ class AppForm extends React.Component {
             },
         };
         const {getFieldDecorator} = this.props.form;
+        window.form = this.props.form
         return (
             <Form>
                 {

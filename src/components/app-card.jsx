@@ -1,6 +1,7 @@
 import React from 'react'
-import {Card, Icon, Avatar, Switch, message} from 'antd'
+import {Card, Icon, Switch, message} from 'antd'
 import {withRouter} from 'react-router-dom'
+import Description from './description'
 import {axios} from '../util'
 
 const {Meta} = Card
@@ -32,12 +33,13 @@ export default class AppCard extends React.Component {
         const {data} = this.props
         return (
             <Card
+                hoverable={true}
                 actions={[<Switch onChange={this.handleChange} checked={data.show}/>, <Icon onClick={() => this.props.history.push(data.type)} type="setting" style={{fontSize: 22}}/>]}
             >
                 <Meta
-                    avatar={<Avatar src={data.logoSrc} size={'large'}/>}
+                    avatar={<img src={data.logoSrc} alt={data.title} style={{width: 48, height: 48, borderRadius: 48}}/>}
                     title={data.title}
-                    description="This is the description"
+                    description={<Description text={data.description}/>}
                 />
             </Card>
         )

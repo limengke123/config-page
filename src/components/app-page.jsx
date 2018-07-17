@@ -28,6 +28,8 @@ export default class AppPage extends React.Component {
     componentDidMount () {
         axios.get(`/api/getConfig?appName=${this.props.type}`).then(resp => {
             const fields = deepClone(this.state.fields)
+            if (!resp.data) resp.data = {}
+            if (!resp.data.subConfig) resp.data.subConfig = {}
             let data = deepMerge(fields, resp.data.subConfig)
             if (data) {
                 this.setState({
@@ -37,25 +39,32 @@ export default class AppPage extends React.Component {
         })
     }
     handleClick = () => {
-        let fields = {}
-        Object.keys(this.state.fields).forEach(item => {
-            fields[item] = {}
-            Object.keys(this.state.fields[item]).forEach(_item => {
-                fields[item][_item] = processTimeData(this.state.fields[item][_item])
+        console.log(1)
+        window.form.validateFields(err => {
+            if (err) {
+                return
+            }
+            let fields = {}
+            Object.keys(this.state.fields).forEach(item => {
+                fields[item] = {}
+                Object.keys(this.state.fields[item]).forEach(_item => {
+                    fields[item][_item] = processTimeData(this.state.fields[item][_item])
+                })
+            })
+            axios.post('/api/saveConfig', {
+                type: 'subConfig',
+                data: {
+                    [this.props.type]: fields
+                }
+            }).then(resp => {
+                if (resp.data && resp.data.success === true) {
+                    message.success('保存成功')
+                } else {
+                    message.error('保存失败')
+                }
             })
         })
-        axios.post('/api/saveConfig', {
-            type: 'subConfig',
-            data: {
-                [this.props.type]: fields
-            }
-        }).then(resp => {
-            if (resp.data && resp.data.success === true) {
-                message.success('保存成功')
-            } else {
-                message.error('保存失败')
-            }
-        })
+
     }
 
     render() {

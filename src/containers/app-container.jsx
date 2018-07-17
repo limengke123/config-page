@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, Menu, Icon} from 'antd'
 import { withRouter } from 'react-router-dom'
 import styleClass from './app-container.styl'
+import {getIcon} from '../localConfig/icon'
 
 const { Header, Sider, Content} = Layout
 
@@ -20,7 +21,6 @@ export default class AppContainer extends React.Component {
         history.push(key)
     }
     render () {
-        const icons = ['user', 'video-camera', 'upload', 'mail']
         return (
             <Layout>
                 <Sider
@@ -66,7 +66,7 @@ export default class AppContainer extends React.Component {
                                  * */
                                 Object.keys(window.config).map((app, index) => (
                                     <Menu.Item key={app}>
-                                        <Icon type={icons[index]}/>
+                                        <Icon type={getIcon(index)}/>
                                         <span>{window.config[app].name}</span>
                                     </Menu.Item>
                                 ))
