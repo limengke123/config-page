@@ -4,7 +4,10 @@
       "show": true
     },
     "subConfig": {
-      "baseInfo": {},
+      "baseInfo": {
+        "isShow": true,
+        "infos": "default infos"
+      },
       "userInfo": {
         "username": "432423",
         "password": "321321",

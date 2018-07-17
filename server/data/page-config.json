@@ -8,6 +8,13 @@
         "fields": "baseInfo",
         "rules": [
           {
+            "name": "显示",
+            "fields": "isShow",
+            "isRequired": false,
+            "type": "switch",
+            "defaultValue": true
+          },
+          {
             "name": "基本信息",
             "fields": "infos",
             "isRequired": false,
@@ -438,6 +445,188 @@
   },
   "opac": {
     "name": "图书检索",
+    "version": "1.0.0",
+    "description": "请对图书检索应用中的选项进行配置",
+    "rules": [
+      {
+        "name": "是否显示",
+        "fields": "isShow",
+        "defaultValue": true
+      }
+    ],
+    "children": [
+      {
+        "name": "基本配置",
+        "fields": "baseInfo",
+        "rules": [
+          {
+            "name": "账号",
+            "fields": "username",
+            "isRequired": false,
+            "type": "input",
+            "defaultValue": "default username"
+          },
+          {
+            "name": "第二个配置",
+            "fields": "username2",
+            "isRequired": false,
+            "type": "input",
+            "defaultValue": "默认值"
+          }
+        ]
+      },
+      {
+        "name": "个人信息",
+        "fields": "userInfo",
+        "rules": [
+          {
+            "name": "账号",
+            "fields": "username",
+            "isRequired": false,
+            "type": "input",
+            "defaultValue": "default username"
+          },
+          {
+            "name": "密码",
+            "fields": "password",
+            "isRequired": true,
+            "type": "input",
+            "defaultValue": "default password"
+          }
+        ]
+      },
+      {
+        "name": "测试页面",
+        "fields": "test",
+        "rules": [
+          {
+            "name": "纯文字测试",
+            "fields": "word",
+            "isRequired": false,
+            "type": "text",
+            "defaultValue": "default test"
+          },
+          {
+            "name": "测试",
+            "fields": "testInput",
+            "isRequired": false,
+            "type": "input",
+            "defaultValue": "default test"
+          },
+          {
+            "name": "数字测试",
+            "fields": "numberTest",
+            "isRequired": false,
+            "type": "input-number",
+            "min": 2,
+            "max": 5,
+            "defaultValue": 3
+          },
+          {
+            "name": "下拉框测试",
+            "fields": "selectTest",
+            "isRequired": false,
+            "type": "select",
+            "selectValue": [
+              {
+                "displayValue": "张三",
+                "value": "zhangsan",
+                "defaulted": true
+              },
+              {
+                "displayValue": "李四",
+                "value": "lisi"
+              },
+              {
+                "displayValue": "小黑",
+                "value": "hei"
+              }
+            ],
+            "defaultValue": "zhangsan"
+          },
+          {
+            "name": "多选下拉框测试",
+            "fields": "selectMultipleTest",
+            "isRequired": false,
+            "type": "select-multiple",
+            "selectValue": [
+              {
+                "displayValue": "张三1",
+                "value": "zhangsan1",
+                "defaulted": true
+              },
+              {
+                "displayValue": "李四2",
+                "value": "lisi1"
+              },
+              {
+                "displayValue": "小黑3",
+                "value": "hei1"
+              }
+            ],
+            "defaultValue": "zhangsan1"
+          },
+          {
+            "name": "开关测试",
+            "fields": "switchtest",
+            "isRequired": false,
+            "type": "switch",
+            "defaultValue": true
+          },
+          {
+            "name": "radio-group测试",
+            "fields": "radioGroup",
+            "isRequired": false,
+            "type": "radio-group",
+            "selectValue": [
+              {
+                "displayValue": "item1",
+                "value": "a"
+              },
+              {
+                "displayValue": "item2",
+                "value": "b"
+              },
+              {
+                "displayValue": "item3",
+                "value": "c"
+              }
+            ],
+            "defaultValue": "a"
+          },
+          {
+            "name": "radio-button测试",
+            "fields": "radioButton",
+            "isRequired": false,
+            "type": "radio-button",
+            "selectValue": [
+              {
+                "displayValue": "item11",
+                "value": "aa"
+              },
+              {
+                "displayValue": "item22",
+                "value": "bb"
+              },
+              {
+                "displayValue": "item33",
+                "value": "cc"
+              }
+            ],
+            "defaultValue": "aa"
+          },
+          {
+            "name": "date-picker测试",
+            "fields": "datePicker",
+            "isRequired": false,
+            "type": "date-picker"
+          }
+        ]
+      }
+    ]
+  },
+  "opac1": {
+    "name": "图书检索222",
     "version": "1.0.0",
     "description": "请对图书检索应用中的选项进行配置",
     "rules": [
