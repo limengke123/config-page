@@ -90,7 +90,7 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      
+
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -121,7 +121,7 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -149,7 +149,14 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+              plugins: [
+                  ["import", {
+                      libraryName: "antd",
+                      style: true,   // or 'css'
+                  }],
+                  // 装饰器专用Plugin
+                  "transform-decorators-legacy"
+              ],
               compact: true,
             },
           },
@@ -165,6 +172,22 @@ module.exports = {
           // tags. If you use code splitting, however, any async bundles will still
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
+          {
+              test:/\.styl/,
+              use:[
+                  'style-loader',
+                  //modules 开启css modules
+                  'css-loader?modules&localIdentName=[name]-[hash:base64:5]',
+                  // 'css-loader?modules&localIdentName=[name]__[local]-[hash:base64:5]',
+                  // {
+                  //     loader:'postcss-loader',
+                  //     options:{
+                  //         sourceMap:true
+                  //     }
+                  // },
+                  'stylus-loader'
+              ]
+          },
           {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract(

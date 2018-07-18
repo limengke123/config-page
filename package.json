@@ -119,5 +119,6 @@
       "target": "http://localhost:7777",
       "changeOrigin": true
     }
-  }
+  },
+  "homepage": "./"
 }
