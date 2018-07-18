@@ -4,6 +4,8 @@ import AppContainer from '../containers/app-container'
 import BaseInfoPage from '../pages/base-info-page/base-info-page'
 import AppPage from '../components/app-page'
 
+const basename = '/config'
+
 
 const BaseInfoCompose = ({match}) => (
     <Route path={`${match.url}/`} component={BaseInfoPage} exact/>
@@ -12,7 +14,7 @@ const BaseInfoCompose = ({match}) => (
 export const CustomRouter = () => {
     const apps = Object.keys(window.config)
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
             <Switch>
                 <AppContainer>
                     <Route path={'/'} exact render={() => (
