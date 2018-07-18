@@ -73,41 +73,42 @@
 *应用级别层*下有 `children` 作为该*应用级别层* 下的*子配置层*，用于分割一个大型应用配置，将一个复杂的*应用级别配置*分割成多个*子配置层*。
 *子配置层*下有 `rules` 字段，作为*具体配置层*，这是不可细分一层，也是最实际业务所需的配置设置。
 
-* "readerCenter" 很重要,表明该应用的名称，*应用级别层*的区分，内部会用该字段涉及到相关路由，不能重复
-  * "name" 应用中文名，会在配置页面中显示该中文名
+* "readerCenter" **必须**，,表明该应用的名称，*应用级别层*的区分，内部会用该字段涉及到相关路由，不能重复
+  * "name" **必须**，应用中文名，会在配置页面中显示该中文名
   * "version" 版本号，暂时没有作用
   * "description" 应用描述，用于在页面局部显示
-  * "children" 该*应用级别层*下的*子配置层*，接收一个数组
-    * "name" 子配置名称，在配置页面显示该子配置名称
-    * "fields" 该子配置下的字段名称
-    * "rules" *子配置层*下的*具体配置层*，很重要，具体细节下面详细说
+  * "children" **必须**，该*应用级别层*下的*子配置层*，接收一个数组
+    * "name" **必须**，子配置名称，在配置页面显示该子配置名称
+    * "fields" **必须**，该子配置下的字段名称
+    * "rules" **必须**，*子配置层*下的*具体配置层*，很重要，具体细节下面详细说
     
 #### `rules` 配置项设置
 
 `rules` 接收一个数组格式:
 
-* "name" 注明该配置项的名称
-* "fields" 重要，注明该配置项实际字段名称
-* "isRequired" 注明该字段是否为必须项
-* "type" 注明该配置项展示表单形式
-* "defaultValue" 注明该配置项的默认值
+* "name" `{@type=String}` `{@defaultValue=""}` **必须**，注明该配置项的名称
+* "fields" `{@type=String}` `{@defaultValue=""}` **必须**，注明该配置项实际字段名称
+* "isRequired" `{@type=Boolean}` `{@defaultValue=false}` 注明该字段是否为必须项
+* "requiredMessage"  `{@type=String}` `{@defaultValue="输入必选项"}` 注明未填写时，提示报错文字
+* "type" `{@type=Enum<input, input-number, select, select-multiple, switch, radio-group, radio-button, date-picker, text>}` `{@defaultValue=""}` **必须**，注明该配置项展示表单形式
+* "defaultValue" `{@type=Any}` 注明该配置项的默认值，依据 `type` 类型给定指定默认值
 
 这里的 `type` 属性提供了 [`antd`](https://ant.design/components/form-cn/) 组件库有的几种表单组件,具体如下: 
 
 1. "input" 输入框
 2. "input-number" 数字输入框，此时，在同级上新增接受两个参数：
-    * "min" {@type=Number} {@defaultValue=0} 数字输入框的最小值
-    * "max" {@type=Number} {@defaultValue=10} 数字输入框的最大值
+    * "min" `{@type=Number}` `{@defaultValue=0}` 数字输入框的最小值
+    * "max" `{@type=Number}` `{@defaultValue=10}` 数字输入框的最大值
 3. "select" 下拉框，此时，在同级上新增接受一个参数，注意此时传入的 `defaultValue` 应保持和 `selectValue` 中的 `value` 一致：
-    * selectValue {@type=Array} {@defaultValue=null} 下拉框的可选项, `selectValue` 接受如下参数:
-        * "displayValue" {@type=String} 下拉框选项显示值
-        * "value" {@type=String} 下拉框实际返回值
-        * "defaulted" {@type=Boolean} 是否默认选中该项
+    * selectValue `{@type=Array}` `{@defaultValue=null}` 下拉框的可选项, `selectValue` 接受如下参数:
+        * "displayValue" `{@type=String}` 下拉框选项显示值
+        * "value" `{@type=String}` 下拉框实际返回值
+        * "defaulted" `{@type=Boolean}` 是否默认选中该项
 4. "select-multiple" 多选下拉框，参考 `select` 的参数
 5. "switch" 开关
 6. "radio-group" 单选框，功能和 `select` 类似，参数也和 `select` 类似
 7. "radio-button" 单选按钮，功能和 `radio-group` 类似，参数参考 `radio-group`
-8. "date-picker" 日期选择器，注意：传入的 `defaultValue` 的格式必须类似于 "2018-07-15"，月份和日期需补足两位
+8. "date-picker" 日期选择器，注意：传入的 `defaultValue` 的格式必须类似于 `"2018-07-15"`，月份和日期需补足两位
 9. "text" 纯文字显示
 
 具体表单组件展示如图：

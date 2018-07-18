@@ -10,19 +10,29 @@ const RadioGroup = Radio.Group
 const ruleToChildren = (rule) => {
     let subChildren
     let fieldsConfig = {}
+    if (rule.isRequired) {
+        /**
+         * 验证必选项
+         * */
+        fieldsConfig.rules = []
+        fieldsConfig.rules.push({
+            required: true,
+            message: rule.requiredMessage || "输入必选项"
+        })
+    }
     if (rule.type === 'input') {
         subChildren = <Input/>
-        if (rule.isRequired) {
-            fieldsConfig.rules = []
-            fieldsConfig.rules.push({
-                required: true,
-                message: "输入必选项"
-            })
-        }
     } else if (rule.type === 'text') {
         subChildren = <span className="ant-form-text">{rule.defaultValue}</span>
     } else if (rule.type === 'input-number') {
-        subChildren = <InputNumber min={rule.min || 0} max={rule.max || 10}/>
+        /**
+         * 数字输入框的默认值
+         * min 0
+         * max 10
+         * */
+        const defaultMin = 0
+        const defaultMax = 10
+        subChildren = <InputNumber min={rule.min || defaultMin} max={rule.max || defaultMax}/>
     } else if (rule.type === 'select') {
         subChildren = (
             <Select>
@@ -35,7 +45,7 @@ const ruleToChildren = (rule) => {
         )
     } else if (rule.type === 'select-multiple') {
         subChildren = (
-            <Select mode="multiple" placeholder="Please select favourite colors">
+            <Select mode="multiple">
                 {
                     rule.selectValue.map(item => (
                         <Option key={item.value} value={item.value}>{item.displayValue}</Option>
@@ -44,7 +54,13 @@ const ruleToChildren = (rule) => {
             </Select>
         )
     } else if (rule.type === 'switch') {
-        subChildren = <Switch defaultChecked={rule.defaultValue}/>
+        subChildren = <Switch/>
+        fieldsConfig.valuePropName = 'checked'
+        /**
+         * 用如下注释的方法也能实现
+         * 总归还是用 valuePropName 更加好
+         * */
+        // subChildren = <Switch defaultChecked={rule.defaultValue}/>
     } else if (rule.type === 'radio-group') {
         subChildren = (
             <RadioGroup>
@@ -61,6 +77,7 @@ const ruleToChildren = (rule) => {
                 {
                     rule.selectValue.map(item => (
                         <RadioButton key={item.value} value={item.value}>{item.displayValue}</RadioButton>
+                        // <RadioButton key={item.value} value={item.value}>{item.displayValue}</RadioButton>
                     ))
                 }
             </RadioGroup>
@@ -78,6 +95,19 @@ const ruleToChildren = (rule) => {
 }
 
 class AppForm extends React.Component {
+
+    componentDidMount() {
+        /**
+         * 子组件的 form 属性挂在到 window 上使用
+         * 卸载组件时候 删除
+         * */
+        window.form = this.props.form
+    }
+
+    componentWillUnmount () {
+        delete window.form
+    }
+
     render () {
         const formItemLayout = {
             labelCol: {
@@ -90,7 +120,6 @@ class AppForm extends React.Component {
             },
         };
         const {getFieldDecorator} = this.props.form;
-        window.form = this.props.form
         return (
             <Form>
                 {
@@ -131,7 +160,15 @@ const processObj1 = (str) => {
 
 export default Form.create({
     onFieldsChange(props, changeFields) {
-        props.onChange(changeFields)
+        const outerKey = Object.keys(changeFields)[0]
+        if (!outerKey) {
+            return
+        }
+        const key = Object.keys(changeFields[outerKey])[0]
+        const changeInfo = changeFields[outerKey][key]
+        if (changeInfo.validating === false && !changeInfo.errors) {
+            props.onChange(changeFields)
+        }
     },
     mapPropsToFields(props) {
         let obj = Object.create(null)
@@ -139,6 +176,7 @@ export default Form.create({
             let tempObj = obj[subConfig.fields] = {}
             subConfig.rules.forEach(rule => {
                 tempObj[rule.fields] = Form.createFormField({
+                    // value: props.data[subConfig.fields][rule.fields]
                     value: processObj1(props.data[subConfig.fields][rule.fields])
                 })
             })

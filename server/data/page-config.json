@@ -156,6 +156,7 @@
             "name": "密码",
             "fields": "password",
             "isRequired": true,
+            "requiredMessage": "密码可是一定要输入的噢",
             "type": "input",
             "defaultValue": "default password"
           }
@@ -213,7 +214,7 @@
           {
             "name": "多选下拉框测试",
             "fields": "selectMultipleTest",
-            "isRequired": false,
+            "isRequired": true,
             "type": "select-multiple",
             "selectValue": [
               {

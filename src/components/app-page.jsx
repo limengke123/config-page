@@ -8,6 +8,7 @@ import {axios, processData2, processTimeData, deepMerge, deepClone} from '../uti
 
 export default class AppPage extends React.Component {
     state = {
+        isValid: false,
         fields: {
             ...processData2(window.config[this.props.type])
         },
@@ -39,32 +40,31 @@ export default class AppPage extends React.Component {
         })
     }
     handleClick = () => {
-        console.log(1)
-        window.form.validateFields(err => {
-            if (err) {
-                return
-            }
-            let fields = {}
-            Object.keys(this.state.fields).forEach(item => {
-                fields[item] = {}
-                Object.keys(this.state.fields[item]).forEach(_item => {
-                    fields[item][_item] = processTimeData(this.state.fields[item][_item])
+        window.form.validateFields((err, values) => {
+            if (!err) {
+                let fields = {}
+                Object.keys(this.state.fields).forEach(item => {
+                    fields[item] = {}
+                    Object.keys(this.state.fields[item]).forEach(_item => {
+                        fields[item][_item] = processTimeData(this.state.fields[item][_item])
+                    })
                 })
-            })
-            axios.post('/api/saveConfig', {
-                type: 'subConfig',
-                data: {
-                    [this.props.type]: fields
-                }
-            }).then(resp => {
-                if (resp.data && resp.data.success === true) {
-                    message.success('保存成功')
-                } else {
-                    message.error('保存失败')
-                }
-            })
+                axios.post('/api/saveConfig', {
+                    type: 'subConfig',
+                    data: {
+                        [this.props.type]: fields
+                    }
+                }).then(resp => {
+                    if (resp.data && resp.data.success === true) {
+                        message.success('保存成功')
+                    } else {
+                        message.error('保存失败')
+                    }
+                })
+            } else {
+                message.warn('请输入必选项')
+            }
         })
-
     }
 
     render() {
