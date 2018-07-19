@@ -2,7 +2,11 @@ const fs = require('fs')
 const path = require('path')
 const pageConfig = async (ctx) => {
     ctx.type = 'application/json'
-    ctx.body = fs.createReadStream(path.resolve(__dirname, './data/page-config.json'))
+    ctx.body = {
+        data: require('./data/page-config'),
+        success: true,
+        msg: ''
+    }
 }
 
 const saveConfig = async (ctx) => {
@@ -23,12 +27,14 @@ const saveConfig = async (ctx) => {
         fs.writeFileSync(path.resolve(__dirname, './data/config.json'), JSON.stringify(config), 'utf8')
         ctx.body = {
             success: true,
-            data: config
+            data: config,
+            msg:''
         }
     } catch (e) {
         console.log(e)
         ctx.body = {
-            success: false
+            success: false,
+            msg: e.stack
         }
     }
 }
@@ -43,7 +49,11 @@ const getConfig = async (ctx) => {
         data = config
     }
     ctx.type= 'text/plain'
-    ctx.body = data
+    ctx.body = {
+        data,
+        success: true,
+        msg: ''
+    }
 }
 
 module.exports.init = async router => {

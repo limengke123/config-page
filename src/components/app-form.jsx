@@ -160,15 +160,20 @@ const processObj1 = (str) => {
 
 export default Form.create({
     onFieldsChange(props, changeFields) {
-        const outerKey = Object.keys(changeFields)[0]
-        if (!outerKey) {
-            return
-        }
-        const key = Object.keys(changeFields[outerKey])[0]
-        const changeInfo = changeFields[outerKey][key]
-        if (changeInfo.validating === false && !changeInfo.errors) {
-            props.onChange(changeFields)
-        }
+        /**
+         * 这里的注释代码，能够检验输入的数据，并且用显示错误的方式提示，但是有点问题，所以注释了
+         *
+         * */
+        // const outerKey = Object.keys(changeFields)[0]
+        // if (!outerKey) {
+        //     return
+        // }
+        // const key = Object.keys(changeFields[outerKey])[0]
+        // const changeInfo = changeFields[outerKey][key]
+        // if (changeInfo.validating === false && !changeInfo.errors) {
+        //     props.onChange(changeFields)
+        // }
+        props.onChange(changeFields)
     },
     mapPropsToFields(props) {
         let obj = Object.create(null)

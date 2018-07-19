@@ -27,11 +27,15 @@ export default class AppPage extends React.Component {
         })
     }
     componentDidMount () {
-        axios.get(`/api/getConfig?appName=${this.props.type}`).then(resp => {
+        let url = process.env.REACT_APP_IS_NODE
+            ? `/api/getConfig?appName=${this.props.type}`
+            : `/cfg/lmk/operate.php?operate=read&appName=${this.props.type}`
+        axios.get(url).then(resp => {
             const fields = deepClone(this.state.fields)
             if (!resp.data) resp.data = {}
-            if (!resp.data.subConfig) resp.data.subConfig = {}
-            let data = deepMerge(fields, resp.data.subConfig)
+            if (!resp.data.data) resp.data.data = {}
+            if (!resp.data.data.subConfig) resp.data.data.subConfig = {}
+            let data = deepMerge(fields, resp.data.data.subConfig)
             if (data) {
                 this.setState({
                     fields: data
@@ -49,7 +53,10 @@ export default class AppPage extends React.Component {
                         fields[item][_item] = processTimeData(this.state.fields[item][_item])
                     })
                 })
-                axios.post('/api/saveConfig', {
+                let url = process.env.REACT_APP_IS_NODE
+                    ? '/api/saveConfig'
+                    : '/cfg/lmk/operate.php?operate=edit'
+                axios.post(url, {
                     type: 'subConfig',
                     data: {
                         [this.props.type]: fields

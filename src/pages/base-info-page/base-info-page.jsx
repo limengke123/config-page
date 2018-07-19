@@ -12,11 +12,12 @@ class BaseInfo extends React.Component {
         apps: {}
     }
     componentDidMount () {
-        axios.get('/api/getConfig')
+        let url = process.env.REACT_APP_IS_NODE ? '/api/getConfig' : '/cfg/lmk/operate.php?operate=read'
+        axios.get(url)
             .then(resp => {
                 if (resp.data ) {
                     this.setState({
-                        apps: resp.data
+                        apps: resp.data && resp.data.data
                     })
                 }
             })

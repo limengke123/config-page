@@ -10,7 +10,8 @@ const {Meta} = Card
 export default class AppCard extends React.Component {
 
     handleChange = (checked) => {
-        axios.post('/api/saveConfig', {
+        let url = process.env.REACT_APP_IS_NODE ? '/api/saveConfig' : '/cfg/lmk/operate.php?operate=edit'
+        axios.post(url, {
             type: 'basicConfig',
             data: {
                 [this.props.data.type]: {
