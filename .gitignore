@@ -23,3 +23,6 @@ yarn-error.log*
 .idea
 
 /server/data/config.json
+
+# 本地服务会不断的改变这个文件
+/server/data/config.json
