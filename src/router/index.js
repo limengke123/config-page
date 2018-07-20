@@ -4,7 +4,8 @@ import AppContainer from '../containers/app-container'
 import BaseInfoPage from '../pages/base-info-page/base-info-page'
 import AppPage from '../components/app-page'
 
-const basename = '/config'
+const basename = '/'
+// const basename = '/config'
 
 
 const BaseInfoCompose = ({match}) => (
