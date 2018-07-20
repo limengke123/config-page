@@ -4,7 +4,11 @@ import AppContainer from '../containers/app-container'
 import BaseInfoPage from '../pages/base-info-page/base-info-page'
 import AppPage from '../components/app-page'
 
-const basename = process.env.REACT_APP_IS_NODE ? '/config' : '/'
+const basename = process.env.REACT_APP_IS_NODE
+    ? process.env.REACT_APP_BASE_NAME
+        ? process.env.REACT_APP_BASE_NAME
+        : '/config'
+    : '/'
 // const basename = '/config'
 
 

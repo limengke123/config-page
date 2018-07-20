@@ -159,9 +159,48 @@
 # 依赖安装
 npm i
 
-# 本地api服务启动
+# 以下启动方式是只做前端页面，api 接口全部请求非本地的 `php` 接口
+
+# 前端项目开发环境启动，接口全部代理到 php api 服务
+npm start
+
+# 打包，接口代理到php api 服务上
+npm run build
+
+
+# 以下启动方式，针对完全本地开发，包括 api 接口也是本地起的 node.js 服务
+
+# 本地 node.js api服务启动
 node server
 
-# 前端项目启动
-npm start
+# 前端项目开发环境启动，接口代理到本地起的 `node.js` 服务
+npm run start:node
+
+# 打包，接口代理到 node.js 的 api 服务。
+npm run build:node
 ```
+
+### 本地 Node.js 开发可能遇到的问题
+
+#### `config.json` 找不到
+
+`npm run server:node` 或是 `npm run build:node` 时，`node` 服务可能会出现 *找不到 config.json* 这个问题。
+
+这个文件由于是本地保存的 `config.json` ，每次保存都会对这个修改，所以在开发的时候把这个文件加入到了 `.gitignore` 中，没有加入到版本库，但是又需要这个文件，
+所以这时候需要在 `server/data/` 目录下加一个 `config.json` 文件，里面内容写一个初始化的 `{}` 就行了，这时候重启 `node.js` 服务，就正常了。
+
+#### 页面显示，组件没有加载
+
+在打包好的文件可能会出现这个问题。
+
+这是因为在 `nginx` 上配置规则的时候，加上了 `config` 前缀，所以组件的 `Route` 的 `path` 属性对应不上导致的。所以在代码里，在 `Router` 中，默认加上了 `basename={’/config‘}`,
+所以可以覆盖这个 `basename`。具体这么做：
+
+在 `package.json` 的 `scripts` 中加入这么一条：
+
+`"build:my-build": "cross-env REACT_APP_BASE_NAME=/myBasename npm run build:node",`
+
+这里就把 `basename` 设置为 `/myBasename` ，同样，也可以设置成 `/`，
+
+然后： `npm run build:my-build`
+ 
