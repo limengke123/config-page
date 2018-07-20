@@ -4,8 +4,9 @@ import AppContainer from '../containers/app-container'
 import BaseInfoPage from '../pages/base-info-page/base-info-page'
 import AppPage from '../components/app-page'
 
-const basename = '/'
+const basename = process.env.REACT_APP_IS_NODE ? '/config' : '/'
 // const basename = '/config'
+
 
 
 const BaseInfoCompose = ({match}) => (
