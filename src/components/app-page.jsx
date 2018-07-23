@@ -1,16 +1,36 @@
 import React from 'react'
-import {message} from 'antd'
+import {Link, withRouter} from 'react-router-dom'
+import {message, Breadcrumb} from 'antd'
 import PageHeader from './page-header'
 import PageContent from './page-content'
 import AppForm from './app-form'
 import ToolBar from './tool-bar'
-import {axios, processData2, processTimeData, deepMerge, deepClone} from '../util'
+import {axios, processData2, processTimeData, deepMerge, deepClone, getDeepObj, walkData} from '../util'
 
+const routes = [
+    {
+        path: 'index',
+        breadcrumbName: '首页'
+    }, {
+        path: 'first',
+        breadcrumbName: '一级面包屑'
+    }, {
+        path: 'second',
+        breadcrumbName: '当前页面'
+}]
+
+function itemRender (route, params, routes, paths) {
+    const last = routes.indexOf(route) === routes.length - 1
+    return last ? <span>{route.breadcrumbName}</span> : <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
+}
+
+@withRouter
 export default class AppPage extends React.Component {
     state = {
         isValid: false,
         fields: {
-            ...processData2(window.config[this.props.type])
+            ...processData2(window.config[this.props.type]),
+            // ...processData2(getDeepObj(window.config, this.props.type))
         },
     }
     handleFormChange = (changeFields) => {
@@ -27,6 +47,8 @@ export default class AppPage extends React.Component {
         })
     }
     componentDidMount () {
+        window.walk = walkData
+        console.log(this.state.fields)
         let url = process.env.REACT_APP_IS_NODE
             ? `/api/getConfig?appName=${this.props.type}`
             : `/cfg/lmk/operate.php?operate=read&appName=${this.props.type}`
@@ -78,6 +100,7 @@ export default class AppPage extends React.Component {
         return (
             <div>
                 <PageHeader>
+                    <Breadcrumb itemRender={itemRender} routes={routes}/>
                     <h1>{window.config[this.props.type].name}</h1>
                     <p style={{marginBottom: 16}}>{window.config[this.props.type].description || '请根据需求设置 APP 对应具体配置。'}</p>
                 </PageHeader>

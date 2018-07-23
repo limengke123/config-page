@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link, withRouter} from 'react-router-dom'
 import {Form, Input, Select, Switch, Radio, InputNumber, DatePicker, } from 'antd'
 import moment from "moment"
 import FormCard from './form-card'
@@ -94,6 +95,7 @@ const ruleToChildren = (rule) => {
     }
 }
 
+@withRouter
 class AppForm extends React.Component {
 
     componentDidMount() {
@@ -123,20 +125,34 @@ class AppForm extends React.Component {
         return (
             <Form>
                 {
-                    window.config[this.props.type].children.map(subConfig =>
-                        <FormCard title={subConfig.name} key={subConfig.name}>
-                            {
-                                subConfig.rules.map(rule => {
-                                        const {subChildren, fieldsConfig} = ruleToChildren(rule)
-                                        return (
-                                            <FormItem {...formItemLayout} label={rule.name} key={rule.name}>
-                                                {getFieldDecorator(`${subConfig.fields}.${rule.fields}`, fieldsConfig)(subChildren)}
-                                            </FormItem>
-                                        )
-                                    }
-                                )
-                            }
-                        </FormCard>
+                    window.config[this.props.type].children.map(subConfig => {
+                        /**
+                         * 如果有 page 说明还有子页面
+                         * title 右边加上详细设置
+                         * 跳转进入
+                         * */
+                        let title = subConfig.name
+                        if (subConfig.page) {
+                            title = <div>
+                                <span>{subConfig.name}</span>
+                                <Link to={`${this.props.match.path}/${subConfig.page.key}`} replace={true} style={{float: 'right'}}>详细设置</Link>
+                            </div>
+                        }
+                        return (
+                            <FormCard title={title} key={subConfig.name}>
+                                {
+                                    subConfig.rules.map(rule => {
+                                            const {subChildren, fieldsConfig} = ruleToChildren(rule)
+                                            return (
+                                                <FormItem {...formItemLayout} label={rule.name} key={rule.name}>
+                                                    {getFieldDecorator(`${subConfig.fields}.${rule.fields}`, fieldsConfig)(subChildren)}
+                                                </FormItem>
+                                            )
+                                        }
+                                    )
+                                }
+                            </FormCard>
+                        )}
                     )
                 }
             </Form>

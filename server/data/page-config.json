@@ -1,6 +1,7 @@
 {
   "readerCenter": {
     "name": "读者中心",
+    "key": "readerCenter",
     "version": "1.0.0",
     "description":"请对读者中心应用的选项进行配置",
     "children": [
@@ -90,6 +91,7 @@
   },
   "bookDetail": {
     "name": "图书详情",
+    "key": "bookDetail",
     "version": "1.0.0",
     "rules": [
       {
@@ -294,6 +296,7 @@
     ]
   },
   "bookRecommend": {
+    "key": "bookRecommend",
     "name": "图书荐购",
     "version": "1.0.0",
     "rules": [
@@ -315,7 +318,27 @@
             "type": "input",
             "defaultValue": "default username"
           }
-        ]
+        ],
+        "page": {
+          "key": "bkRecommend",
+          "name": "内部配置",
+          "version": "1.0.0",
+          "children": [
+            {
+              "name": "基本内部配置",
+              "fields": "baseInfo",
+              "rules": [
+                {
+                  "name": "账号",
+                  "fields": "username",
+                  "isRequired": false,
+                  "type": "input",
+                  "defaultValue": "default username"
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "name": "个人信息",
@@ -469,6 +492,7 @@
   },
   "opac": {
     "name": "图书检索",
+    "key": "opac",
     "version": "1.0.0",
     "description": "这是一个完整测试页面，里面内容包含大部分所能展示的样子,但是我的文字真的还是很长的，好像会影响我的显示啊~~~~~这样可不太好啊！！！",
     "rules": [
@@ -652,6 +676,7 @@
   "opac1": {
     "name": "图书检索222",
     "version": "1.0.0",
+    "key":"opac1",
     "description": "请对图书检索应用中的选项进行配置",
     "rules": [
       {
@@ -833,6 +858,7 @@
   },
   "testPage": {
     "name": "完全测试",
+    "key": "testPage",
     "version": "1.0.0",
     "description": "这是一个完整测试页面，里面内容包含大部分所能展示的样子",
     "rules": [
@@ -1015,6 +1041,7 @@
   },
   "ttt": {
     "name": "测试2",
+    "key":"ttt",
     "version": "1.0.0",
     "description": "这是一个完整测试页面，里面内容包含大部分所能展示的样子,但是我的文字真的还是很长的，好像会影响我的显示啊~~~~~这样可不太好啊！！！",
     "rules": [
