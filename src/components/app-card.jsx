@@ -9,15 +9,16 @@ const {Meta} = Card
 @withRouter
 export default class AppCard extends React.Component {
 
+    changeFetchParams = (path) => {
+        return path + '.basicConfig'
+    }
+
     handleChange = (checked) => {
         let url = process.env.REACT_APP_IS_NODE ? '/api/saveConfig' : '/cfg/lmk/operate.php?operate=edit'
         axios.post(url, {
-            type: 'basicConfig',
             data: {
-                [this.props.data.type]: {
-                    basicConfig: {
-                        show: checked
-                    }
+                [this.changeFetchParams(this.props.data.type)]: {
+                    show: checked
                 }
             }
         }).then(resp => {

@@ -9,7 +9,7 @@ import {axios, processData2, processTimeData, deepMerge, deepClone, getDeepObj, 
 
 const routes = [
     {
-        path: 'index',
+        path: '',
         breadcrumbName: '首页'
     }, {
         path: 'first',
@@ -17,11 +17,18 @@ const routes = [
     }, {
         path: 'second',
         breadcrumbName: '当前页面'
-}]
+    }, {
+        path: 'third',
+        breadcrumbName: '第四个'
+    }, {
+        path: 'five',
+        breadcrumbName: '第五个'
+    }]
 
 function itemRender (route, params, routes, paths) {
     const last = routes.indexOf(route) === routes.length - 1
-    return last ? <span>{route.breadcrumbName}</span> : <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
+    console.log(paths)
+    return last ? <span>{route.breadcrumbName}</span> : <Link to={paths.join('/')} >{route.breadcrumbName}</Link>
 }
 
 @withRouter
@@ -61,7 +68,7 @@ export default class AppPage extends React.Component {
     }
 
     componentDidMount () {
-        console.log(this.props.type)
+        window.history1 = this.props.history
         let url = process.env.REACT_APP_IS_NODE
             ? `/api/getConfig?appName=${this.changeFetchParams(this.props.type)}`
             : `/cfg/lmk/operate.php?operate=read&appName=${this.changeFetchParams(this.props.type)}`
@@ -109,7 +116,28 @@ export default class AppPage extends React.Component {
         })
     }
 
+    handleRoute = () => {
+        const {pathname} = this.props.location
+        let routes = pathname.split('/').filter(Boolean)
+        let pre = ''
+        routes = routes.map(route => {
+            const breadcrumbName = walkData(window.config, pre + route).name
+            pre = pre + route + '/'
+            return {
+                path: route,
+                breadcrumbName: breadcrumbName
+            }
+        })
+        routes.unshift({
+                path: '',
+                breadcrumbName: '首页'
+        })
+        console.log(routes)
+        return routes
+    }
+
     render() {
+        const routes1 = this.handleRoute()
         return (
             <div>
                 <PageHeader>
