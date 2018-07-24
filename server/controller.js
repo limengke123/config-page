@@ -1,5 +1,8 @@
 const fs = require('fs')
 const path = require('path')
+const {getConfigData} = require('./util')
+
+
 const pageConfig = async (ctx) => {
     ctx.type = 'application/json'
     ctx.body = {
@@ -44,7 +47,8 @@ const getConfig = async (ctx) => {
     const config = require('./data/config')
     let data = null
     if (params && params.appName) {
-        data = config[params.appName]
+        data = getConfigData(config, params.appName)
+        // data = config[params.appName]
     } else {
         data = config
     }

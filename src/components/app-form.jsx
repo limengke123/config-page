@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom'
 import {Form, Input, Select, Switch, Radio, InputNumber, DatePicker, } from 'antd'
 import moment from "moment"
 import FormCard from './form-card'
+import {walkData} from "../util"
 const FormItem = Form.Item
 const Option = Select.Option
 const RadioButton = Radio.Button
@@ -125,7 +126,7 @@ class AppForm extends React.Component {
         return (
             <Form>
                 {
-                    window.config[this.props.type].children.map(subConfig => {
+                    walkData(window.config, this.props.type).children.map(subConfig => {
                         /**
                          * 如果有 page 说明还有子页面
                          * title 右边加上详细设置
@@ -135,7 +136,7 @@ class AppForm extends React.Component {
                         if (subConfig.page) {
                             title = <div>
                                 <span>{subConfig.name}</span>
-                                <Link to={`${this.props.match.path}/${subConfig.page.key}`} replace={true} style={{float: 'right'}}>详细设置</Link>
+                                <Link to={`${this.props.match.path}/${subConfig.fields}_${subConfig.page.key}`} replace={true} style={{float: 'right'}}>详细设置</Link>
                             </div>
                         }
                         return (
@@ -193,11 +194,10 @@ export default Form.create({
     },
     mapPropsToFields(props) {
         let obj = Object.create(null)
-        window.config[props.type].children.forEach(subConfig => {
+        walkData(window.config, props.type).children.forEach(subConfig => {
             let tempObj = obj[subConfig.fields] = {}
             subConfig.rules.forEach(rule => {
                 tempObj[rule.fields] = Form.createFormField({
-                    // value: props.data[subConfig.fields][rule.fields]
                     value: processObj1(props.data[subConfig.fields][rule.fields])
                 })
             })

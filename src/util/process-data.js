@@ -157,41 +157,45 @@ const getDeepObj = (obj, fields, separator = '/') => {
 const walkData = (obj, fields, separator = '/') => {
     if (!obj) return null
     const separators = fields.split(separator)
-    let i = separators.length
     let page = {}
-    while (i--) {
-        if (i === 1) {
-            // 最后一次执行了
-            // processData2()
-        }
-        page = page.children.filter(child => child.page && child.page.key === i){}
-    }
-}
+    for (let i = 0, len = separators.length; i < len; i++) {
+        const currentSeparator = separators[i]
+        if (i === 0) {
+            page = obj[currentSeparator]
+        } else {
+            if (page.children) {
+                /**
+                 * 筛选拿到的对应匹配数组
+                 * 总是取第一个匹配的 page 对象
+                 * bookRecommend/baseInfo_bkRecommend
+                 * */
+                if (!~currentSeparator.indexOf('_')) throw new Error('walkData 接受子字段需要 _ 结合当前children')
 
-const process = (page) => {
-    /**
-     * 处理最初始的数据,拿到初始化的值
-     * string -> moment
-     * @param config {object} 初始的数据
-     * @return obj {object} 用于初始化state的对象
-     * */
+                const [pre, main] = currentSeparator.split('_')
 
-    let obj = {}
+                let _arr = page.children.filter(child => {
+                    return child.fields === pre && child.page && child.page.key === main
+                })
+                if (!_arr.length) throw new Error('walkData 没有找到相关数据')
+                if (_arr.length > 1) throw new Error('walkData 规则配置中同级中存在字段命名重复')
 
-    page.children && page.children.forEach(item => {
-        let _obj = {}
-        item.rules.forEach(_item => {
-            if (_item.type === 'date-picker') {
-                _obj[_item.fields] = moment(_item.defaultValue)
-            } else {
-                _obj[_item.fields] = _item.defaultValue
+                page = _arr[0].page
             }
-        })
-        obj[item.fields] = _obj
-    })
-
-    return obj
+        }
+    }
+    return page
+    // processData2(page)
 }
+
+/**
+ * @summary 用新的分割符替换字符串中旧的分隔符
+ * a/b/c/d --> a.b.c.d
+ * @param str {string} - 需要处理的字符串
+ * @param oldSeparator {string}[/] 旧的分隔符
+ * @param newSeparator {string}[.] - 新的分隔符
+ * @return str {string} - 处理后的分隔符
+ * */
+const replaceSeparator = (str, oldSeparator, newSeparator) => str.split(oldSeparator).join(newSeparator)
 
 export {
     processData,
@@ -202,4 +206,5 @@ export {
     deepClone,
     getDeepObj,
     walkData,
+    replaceSeparator,
 }

@@ -21,11 +21,18 @@ const BaseInfoCompose = ({match}) => (
 const AppRouteCompose = ({match, app}) => {
     let routes = []
     let temp = []
-    const run = page => {
+    let separator = '_'
+    /**
+     * 递归参数,拿到路由相关配置
+     * e.g
+     * bookRecommend
+     * bookRecommend/baseInfo_bkRecommend
+     * */
+    const run = (page, fields) => {
         if (!page) return
-        temp.push(page.key)
+        temp.push(fields ? `${fields}${separator}${page.key}` : page.key)
         if (page.children) {
-            page.children.forEach(child => run(child.page))
+            page.children.forEach(child => run(child.page, child.fields))
         }
         routes.push({
             path: temp.join('/'),
@@ -41,7 +48,7 @@ const AppRouteCompose = ({match, app}) => {
                 {/*<AppPage type={app.key}/>*/}
             {/*)}/>*/}
             {
-                routes.map(route => <Route key={route.path} path={`/${route.path}`} render={() => <AppPage type={route.path}/>}/>)
+                routes.map(route => <Route key={route.path} exact path={`/${route.path}`} render={() => <AppPage type={route.path}/>}/>)
             }
         </Fragment>
     )

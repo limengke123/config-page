@@ -333,7 +333,7 @@
                   "fields": "username",
                   "isRequired": false,
                   "type": "input",
-                  "defaultValue": "default username"
+                  "defaultValue": "这个默认值生效了吗?"
                 }
               ]
             }
