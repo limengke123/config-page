@@ -45,6 +45,7 @@ export default class AppPage extends React.Component {
         _arr.splice(1, 0, "subConfig")
         return _arr.join('.')
     }
+
     handleFormChange = (changeFields) => {
         const outerKey = Object.keys(changeFields)[0]
         const innerKey = Object.keys(changeFields[outerKey])[0]
@@ -58,6 +59,7 @@ export default class AppPage extends React.Component {
             }
         })
     }
+
     componentDidMount () {
         console.log(this.props.type)
         let url = process.env.REACT_APP_IS_NODE
@@ -75,6 +77,7 @@ export default class AppPage extends React.Component {
             }
         })
     }
+
     handleClick = () => {
         window.form.validateFields((err, values) => {
             if (!err) {
@@ -85,13 +88,13 @@ export default class AppPage extends React.Component {
                         fields[item][_item] = processTimeData(this.state.fields[item][_item])
                     })
                 })
+                console.log(this.changeFetchParams(this.props.type),fields)
                 let url = process.env.REACT_APP_IS_NODE
                     ? '/api/saveConfig'
                     : '/cfg/lmk/operate.php?operate=edit'
                 axios.post(url, {
-                    type: 'subConfig',
                     data: {
-                        [this.props.type]: fields
+                        [this.changeFetchParams(this.props.type)]: fields
                     }
                 }).then(resp => {
                     if (resp.data && resp.data.success === true) {

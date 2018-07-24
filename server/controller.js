@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const {getConfigData} = require('./util')
+const {getConfigData, setConfigData} = require('./util')
 
 
 const pageConfig = async (ctx) => {
@@ -13,17 +13,10 @@ const pageConfig = async (ctx) => {
 }
 
 const saveConfig = async (ctx) => {
-    const {type, data} = ctx.request.body
+    const {data} = ctx.request.body
     const config = require('./data/config')
     const key = Object.keys(data)[0]
-    if (!config[key]) config[key] = {}
-    if (type === 'subConfig') {
-        if (!config[key]['basicConfig']) config[key]['basicConfig'] = {show: false}
-        config[key]['subConfig'] = data[key]
-    } else if (type === 'basicConfig') {
-        if (!config[key]['subConfig']) config[key]['subConfig'] = {}
-        config[key]['basicConfig'] = data[key].basicConfig
-    }
+    setConfigData(config, key, data[key])
 
     try {
         fs.unlinkSync(path.resolve(__dirname, './data/config.json'))
@@ -48,7 +41,6 @@ const getConfig = async (ctx) => {
     let data = null
     if (params && params.appName) {
         data = getConfigData(config, params.appName)
-        // data = config[params.appName]
     } else {
         data = config
     }

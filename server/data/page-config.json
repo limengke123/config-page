@@ -320,7 +320,7 @@
           }
         ],
         "page": {
-          "key": "bkRecommend",
+          "key": "$$bkRecommend",
           "name": "内部配置",
           "version": "1.0.0",
           "children": [
