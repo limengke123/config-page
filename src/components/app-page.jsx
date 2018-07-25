@@ -1,6 +1,6 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
-import {message} from 'antd'
+import {message, Spin} from 'antd'
 import PageHeader from './page-header'
 import PageContent from './page-content'
 import AppForm from './app-form'
@@ -12,6 +12,7 @@ import {axios, processData2, processTimeData, deepMerge, deepClone, walkData} fr
 export default class AppPage extends React.Component {
     state = {
         isValid: false,
+        isLoading: true,
         fields: {
             ...processData2(walkData(window.config, this.props.type))
         },
@@ -43,7 +44,6 @@ export default class AppPage extends React.Component {
     }
 
     componentDidMount () {
-        window.history1 = this.props.history
         let url = process.env.REACT_APP_IS_NODE
             ? `/api/getConfig?appName=${this.changeFetchParams(this.props.type)}`
             : `/cfg/lmk/operate.php?operate=read&appName=${this.changeFetchParams(this.props.type)}`
@@ -54,13 +54,15 @@ export default class AppPage extends React.Component {
             let data = deepMerge(fields, resp.data.data)
             if (data) {
                 this.setState({
-                    fields: data
+                    fields: data,
+                    isLoading: false
                 })
             }
         })
     }
 
     handleClick = () => {
+        if (this.state.isLoading) return false
         window.form.validateFields((err, values) => {
             if (!err) {
                 let fields = {}
@@ -94,15 +96,17 @@ export default class AppPage extends React.Component {
     render() {
         return (
             <div>
-                <PageHeader>
-                    <Bread />
-                    <h1>{walkData(window.config, this.props.type).name}</h1>
-                    <p style={{marginBottom: 16}}>{walkData(window.config, this.props.type).description || '请根据需求设置 APP 对应具体配置。'}</p>
-                </PageHeader>
-                <PageContent>
-                    <AppForm onChange={this.handleFormChange} data={this.state.fields} type={this.props.type}/>
-                    <ToolBar onClick={this.handleClick}/>
-                </PageContent>
+                <Spin spinning={this.state.isLoading} size={'large'} tip={'Loading...'}>
+                    <PageHeader>
+                        <Bread />
+                        <h1>{walkData(window.config, this.props.type).name}</h1>
+                        <p style={{marginBottom: 16}}>{walkData(window.config, this.props.type).description || '请根据需求设置 APP 对应具体配置。'}</p>
+                    </PageHeader>
+                    <PageContent>
+                        <AppForm onChange={this.handleFormChange} data={this.state.fields} type={this.props.type}/>
+                        <ToolBar onClick={this.handleClick}/>
+                    </PageContent>
+                </Spin>
             </div>
         )
     }

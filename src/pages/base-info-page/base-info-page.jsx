@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import {List} from 'antd'
+import {List, Spin} from 'antd'
 import AppCard from '../../components/app-card'
 import PageHeader from '../../components/page-header'
 import PageContent from '../../components/page-content'
@@ -9,7 +9,8 @@ import {axios} from '../../util'
 
 class BaseInfo extends React.Component {
     state = {
-        apps: {}
+        apps: {},
+        isLoading: true,
     }
     componentDidMount () {
         let url = process.env.REACT_APP_IS_NODE ? '/api/getConfig' : '/cfg/lmk/operate.php?operate=read'
@@ -17,7 +18,8 @@ class BaseInfo extends React.Component {
             .then(resp => {
                 if (resp.data ) {
                     this.setState({
-                        apps: resp.data && resp.data.data
+                        apps: resp.data && resp.data.data,
+                        isLoading: false
                     })
                 }
             })
@@ -59,21 +61,23 @@ class BaseInfo extends React.Component {
         }))
         return (
             <Fragment>
-                <PageHeader>
-                    <h1>App应用</h1>
-                    <p style={{marginBottom: 16}}>从如下 App 应用中挑选需要使用的应用，并设置 APP 对应具体配置。</p>
-                </PageHeader>
-                <PageContent>
-                    <List
-                        grid={{gutter: 24, xs:1, md:2, xl: 3, xxl: 4}}
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item>
-                                <AppCard data={item}/>
-                            </List.Item>
-                        )}
-                    />
-                </PageContent>
+                <Spin tip={'Loading...'} size={'large'} spinning={this.state.isLoading}>
+                    <PageHeader>
+                        <h1>App应用</h1>
+                        <p style={{marginBottom: 16}}>从如下 App 应用中挑选需要使用的应用，并设置 APP 对应具体配置。</p>
+                    </PageHeader>
+                    <PageContent>
+                        <List
+                            grid={{gutter: 24, xs:1, md:2, xl: 3, xxl: 4}}
+                            dataSource={data}
+                            renderItem={item => (
+                                <List.Item>
+                                    <AppCard data={item}/>
+                                </List.Item>
+                            )}
+                        />
+                    </PageContent>
+                </Spin>
             </Fragment>
         )
     }
