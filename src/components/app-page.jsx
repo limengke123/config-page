@@ -77,9 +77,8 @@ export default class AppPage extends React.Component {
                     ? '/api/saveConfig'
                     : '/cfg/lmk/operate.php?operate=edit'
                 axios.post(url, {
-                    data: {
-                        [this.changeFetchParams(this.props.type)]: fields
-                    }
+                    appName: this.changeFetchParams(this.props.type),
+                    value: fields
                 }).then(resp => {
                     if (resp.data && resp.data.success === true) {
                         message.success('保存成功')

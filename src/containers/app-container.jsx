@@ -20,6 +20,8 @@ export default class AppContainer extends React.Component {
         const {history} = this.props
         history.push(`/${key}`)
     }
+
+
     render () {
         return (
             <Layout>
@@ -75,7 +77,7 @@ export default class AppContainer extends React.Component {
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header style={{background: '#fff', padding:0}} className={styleClass.header}>
+                    <Header style={{background: '#fff', padding:0, zIndex: 1}} className={styleClass.header}>
                         <Icon
                             className={styleClass.trigger}
                             type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}

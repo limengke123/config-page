@@ -16,10 +16,9 @@ export default class AppCard extends React.Component {
     handleChange = (checked) => {
         let url = process.env.REACT_APP_IS_NODE ? '/api/saveConfig' : '/cfg/lmk/operate.php?operate=edit'
         axios.post(url, {
-            data: {
-                [this.changeFetchParams(this.props.data.type)]: {
-                    show: checked
-                }
+            appName: this.changeFetchParams(this.props.data.type),
+            value: {
+                show: checked
             }
         }).then(resp => {
             if (resp.data && resp.data.success === true) {

@@ -4,6 +4,13 @@
     "key": "readerCenter",
     "version": "1.0.0",
     "description":"请对读者中心应用的选项进行配置",
+    "rules": [
+      {
+        "name": "是否显示",
+        "fields": "show",
+        "defaultValue": true
+      }
+    ],
     "children": [
       {
         "name": "基本配置",
@@ -496,7 +503,7 @@
     "rules": [
       {
         "name": "是否显示",
-        "fields": "isShow",
+        "fields": "show",
         "defaultValue": true
       }
     ],
@@ -702,7 +709,7 @@
     "rules": [
       {
         "name": "是否显示",
-        "fields": "isShow",
+        "fields": "show",
         "defaultValue": true
       }
     ],
@@ -931,7 +938,7 @@
     "rules": [
       {
         "name": "是否显示",
-        "fields": "isShow",
+        "fields": "show",
         "defaultValue": true
       }
     ],
@@ -1114,7 +1121,7 @@
     "rules": [
       {
         "name": "是否显示",
-        "fields": "isShow",
+        "fields": "show",
         "defaultValue": true
       }
     ],
@@ -1297,7 +1304,7 @@
     "rules": [
       {
         "name": "是否显示",
-        "fields": "isShow",
+        "fields": "show",
         "defaultValue": true
       }
     ],
@@ -1480,7 +1487,7 @@
     "rules": [
       {
         "name": "是否显示",
-        "fields": "isShow",
+        "fields": "show",
         "defaultValue": true
       }
     ],

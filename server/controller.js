@@ -1,22 +1,33 @@
 const fs = require('fs')
 const path = require('path')
+const util = require('util')
+
+const readFile = util.promisify(fs.readFile)
+
 const {getConfigData, setConfigData} = require('./util')
+
+const pageConfigPath = './data/page-config'
+const configPath = './data/config'
 
 
 const pageConfig = async (ctx) => {
     ctx.type = 'application/json'
     ctx.body = {
-        data: require('./data/page-config'),
+        data: require(pageConfigPath),
         success: true,
         msg: ''
     }
 }
 
 const saveConfig = async (ctx) => {
-    const {data} = ctx.request.body
-    const config = require('./data/config')
-    const key = Object.keys(data)[0]
-    setConfigData(config, key, data[key])
+    const {appName, value} = ctx.request.body
+    let config = await readFile(path.resolve(__dirname, './data/config.json'), {encoding: 'utf8'})
+    config = JSON.parse(config)
+    if (appName) {
+        setConfigData(config, appName, value)
+    } else {
+        config = value
+    }
 
     try {
         fs.unlinkSync(path.resolve(__dirname, './data/config.json'))
@@ -37,7 +48,8 @@ const saveConfig = async (ctx) => {
 
 const getConfig = async (ctx) => {
     const params = ctx.query
-    const config = require('./data/config')
+    let config = await readFile(path.resolve(__dirname, './data/config.json'), {encoding: 'utf8'})
+    config = JSON.parse(config)
     let data = null
     if (params && params.appName) {
         data = getConfigData(config, params.appName)
@@ -52,8 +64,16 @@ const getConfig = async (ctx) => {
     }
 }
 
+const test = async (ctx) => {
+    const config = await readFile(path.resolve(__dirname, './data/config.json'), {encoding: 'utf8'})
+    ctx.body = {
+        config: JSON.parse(config)
+    }
+}
+
 module.exports.init = async router => {
     router.get('/pageConfig', pageConfig)
     router.post('/saveConfig', saveConfig)
     router.get('/getConfig', getConfig)
+    router.get('/test', test)
 }

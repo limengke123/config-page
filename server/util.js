@@ -10,7 +10,7 @@ const getConfigData = (obj, fields, separator = '.', pre = '') => {
     const separators = fields.split(separator)
     return separators.reduce((accu, currentKey, index) => {
         if (index === 0) {
-            return obj[currentKey]
+            return obj[currentKey] || {}
         } else {
             return accu[`${pre}${currentKey}`] || {}
         }
