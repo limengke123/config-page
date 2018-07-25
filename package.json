@@ -1,6 +1,6 @@
 {
   "name": "config-page",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "antd": "^3.6.4",
@@ -116,10 +116,6 @@
   "proxy": {
     "/api/*": {
       "target": "http://localhost:8989",
-      "changeOrigin": true
-    },
-    "/apps/*": {
-      "target": "http://localhost:7777",
       "changeOrigin": true
     },
     "/cfg": {

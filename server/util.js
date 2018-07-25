@@ -12,7 +12,7 @@ const getConfigData = (obj, fields, separator = '.', pre = '') => {
         if (index === 0) {
             return obj[currentKey]
         } else {
-            return accu[`${pre}${currentKey}`]
+            return accu[`${pre}${currentKey}`] || {}
         }
     }, {})
 }
@@ -28,12 +28,16 @@ const getConfigData = (obj, fields, separator = '.', pre = '') => {
 const setConfigData = (obj, fields, data, separator = '.') => {
     const separators = fields.split(separator)
     separators.reduce((accu, currentKey, index, array) => {
+        if (!accu[currentKey]) {
+            accu[currentKey] = {}
+        }
         if(index === array.length - 1) {
             // 最后一次赋值,直接赋值有问题,外层会直接把内层配置好的属性直接覆盖掉
             // 这里做一个约定,以$$开头的属性为内层配置属性,不允许被覆盖掉
             // _由于在路由中用到了这个变量,所以这里就不能用_了
             // const keys = accu[currentKey] && Object.keys(accu[currentKey]).filter(key => key.indexOf('$$') === 1)[0]
-            const keys = accu[currentKey] && Object.keys(accu[currentKey])
+            const keys = Object.keys(data)
+            // const keys = Object.keys(accu[currentKey])
             if (keys) {
                 for (let i = 0, len = keys.length; i < len; i++) {
                     const child = accu[currentKey][keys[i]]
@@ -49,9 +53,6 @@ const setConfigData = (obj, fields, data, separator = '.') => {
             } else {
                 accu[currentKey] = data
             }
-        }
-        if (!accu[currentKey]) {
-            accu[currentKey] = {}
         }
         return accu[currentKey]
     }, obj)

@@ -13,7 +13,7 @@ class Bread extends React.Component {
             const breadcrumbName = walkData(window.config, pre + route).name
             pre = pre + route + '/'
             return {
-                path: route,
+                path: pre,
                 breadcrumbName: breadcrumbName
             }
         })
