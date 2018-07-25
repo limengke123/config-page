@@ -18,7 +18,7 @@ export default class AppContainer extends React.Component {
     }
     changePage = ({ item, key }) => {
         const {history} = this.props
-        history.push(key)
+        history.push(`/${key}`)
     }
     render () {
         return (

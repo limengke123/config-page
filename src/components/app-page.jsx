@@ -1,43 +1,18 @@
 import React from 'react'
-import {Link, withRouter} from 'react-router-dom'
-import {message, Breadcrumb} from 'antd'
+import {withRouter} from 'react-router-dom'
+import {message} from 'antd'
 import PageHeader from './page-header'
 import PageContent from './page-content'
 import AppForm from './app-form'
 import ToolBar from './tool-bar'
-import {axios, processData2, processTimeData, deepMerge, deepClone, getDeepObj, walkData, replaceSeparator} from '../util'
-
-const routes = [
-    {
-        path: '',
-        breadcrumbName: '首页'
-    }, {
-        path: 'first',
-        breadcrumbName: '一级面包屑'
-    }, {
-        path: 'second',
-        breadcrumbName: '当前页面'
-    }, {
-        path: 'third',
-        breadcrumbName: '第四个'
-    }, {
-        path: 'five',
-        breadcrumbName: '第五个'
-    }]
-
-function itemRender (route, params, routes, paths) {
-    const last = routes.indexOf(route) === routes.length - 1
-    console.log(paths)
-    return last ? <span>{route.breadcrumbName}</span> : <Link to={paths.join('/')} >{route.breadcrumbName}</Link>
-}
+import Bread from './bread'
+import {axios, processData2, processTimeData, deepMerge, deepClone, walkData} from '../util'
 
 @withRouter
 export default class AppPage extends React.Component {
     state = {
         isValid: false,
         fields: {
-            //...processData2(window.config[this.props.type]),
-            // ...processData2(getDeepObj(window.config, this.props.type))
             ...processData2(walkData(window.config, this.props.type))
         },
     }
@@ -116,32 +91,11 @@ export default class AppPage extends React.Component {
         })
     }
 
-    handleRoute = () => {
-        const {pathname} = this.props.location
-        let routes = pathname.split('/').filter(Boolean)
-        let pre = ''
-        routes = routes.map(route => {
-            const breadcrumbName = walkData(window.config, pre + route).name
-            pre = pre + route + '/'
-            return {
-                path: route,
-                breadcrumbName: breadcrumbName
-            }
-        })
-        routes.unshift({
-                path: '',
-                breadcrumbName: '首页'
-        })
-        console.log(routes)
-        return routes
-    }
-
     render() {
-        const routes1 = this.handleRoute()
         return (
             <div>
                 <PageHeader>
-                    <Breadcrumb itemRender={itemRender} routes={routes}/>
+                    <Bread />
                     <h1>{walkData(window.config, this.props.type).name}</h1>
                     <p style={{marginBottom: 16}}>{walkData(window.config, this.props.type).description || '请根据需求设置 APP 对应具体配置。'}</p>
                 </PageHeader>
