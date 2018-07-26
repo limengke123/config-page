@@ -199,6 +199,20 @@ e.g `userInfo_$$bkRecommend`，将该新路由追加到上一层路由之下。
 [`antd` 的 `icon`](http://ant-design.gitee.io/components/icon-cn/)，挑选需要的 `icon` 加入到数组中去就可以了。应用图标和之前图标相同的方式引入即可。
 调整数组的顺序，就可以更改 `icon` 和应用图标的显示顺序。
 
+#### 检查脚本
+
+对于复杂的 `page-config` 以及比较繁杂的内部规则要求,所以 `config-page` (应用规则配置) 难免是会出现一些错误,这里有个脚本去做了校验 `config-page` 。
+
+使用：
+
+```shell
+node ./help/check ./server/data/page-config.json
+```
+
+这里第二个参数 `./help/check` 是脚本所在位置, 第三个参数`./server/data/page-config.json` 是需要检测 **应用配置文件** 所在路径。如果不给第三个参数,默认去校验 `./server/data/page-config.json`。
+
+检验通过,会返回根据**应用配置文件**对应生成的默认配置。
+
 ## 项目细节
 
 整体思路是，通过**接口**去接收一个*应用规则配置*，通过该*应用规则配置*去生成一个*应用生成配置*。
