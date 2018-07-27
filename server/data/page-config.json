@@ -60,6 +60,12 @@
             "otherProps" :{
               "disabled": true
             }
+          },
+          {
+            "name": "上传组件",
+            "fields": "head",
+            "isRequired": "false",
+            "type": "upload"
           }
         ],
         "page": {

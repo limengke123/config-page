@@ -1,13 +1,28 @@
 const fs = require('fs')
 const path = require('path')
 const util = require('util')
-
+const multer = require('koa-multer')
 const readFile = util.promisify(fs.readFile)
-
 const {getConfigData, setConfigData} = require('./util')
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images')
+    },
+    filename: function (req, file, cb) {
+        const fileFormat = (file.originalname).split('.')
+        const date = new Date()
+        cb(null, file.fieldname + '_' +  1 + '.' + fileFormat[fileFormat.length - 1])
+    }
+})
+
+const multer_head = multer({
+    storage
+})
+
+const uploadMiddleware = multer_head.single('head')
+
 const pageConfigPath = './data/page-config'
-const configPath = './data/config'
 
 
 const pageConfig = async (ctx) => {
@@ -71,9 +86,18 @@ const test = async (ctx) => {
     }
 }
 
+const uploadController = async (ctx) => {
+    const {originalname, path, mimetype} = ctx.req.file
+    ctx.body = {
+        success: true,
+        path
+    }
+}
+
 module.exports.init = async router => {
     router.get('/pageConfig', pageConfig)
     router.post('/saveConfig', saveConfig)
     router.get('/getConfig', getConfig)
     router.get('/test', test)
+    router.post('/upload',uploadMiddleware, uploadController)
 }

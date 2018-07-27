@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom'
 import {Form, Input, Select, Switch, Radio, InputNumber, DatePicker, } from 'antd'
 import moment from "moment"
 import FormCard from './form-card'
+import UploadForm from './upload-form'
 import {walkData} from "../util"
 const FormItem = Form.Item
 const Option = Select.Option
@@ -92,6 +93,10 @@ const ruleToChildren = (rule) => {
         subChildren = (
             <DatePicker {...rule.otherProps}/>
         )
+    } else if (rule.type === 'upload') {
+        subChildren = (
+            <UploadForm/>
+        )
     }
 
     return {
@@ -148,6 +153,13 @@ class AppForm extends React.Component {
                                 {
                                     subConfig.rules.map(rule => {
                                             const {subChildren, fieldsConfig} = ruleToChildren(rule)
+                                            if (rule.type === 'upload') {
+                                                return (
+                                                    <FormItem {...formItemLayout} label={rule.name} key={rule.name}>
+                                                        {subChildren}
+                                                    </FormItem>
+                                                )
+                                            }
                                             return (
                                                 <FormItem {...formItemLayout} label={rule.name} key={rule.name}>
                                                     {getFieldDecorator(`${subConfig.fields}.${rule.fields}`, fieldsConfig)(subChildren)}

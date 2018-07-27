@@ -142,7 +142,7 @@ typeShapes:
 
 具体表单组件展示如图：
 
-![表单组件](static/1.png)
+![表单组件](readmeAsserts/1.png)
 
 #### `page` 配置项设置
 
