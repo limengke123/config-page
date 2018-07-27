@@ -9,7 +9,8 @@ export default class UploadForm extends React.Component {
             uid: -1,
             name: 'xxx.png',
             status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            url: '/images/head_1.png',
+            // url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
         }],
     };
     handleCancel = () => this.setState({ previewVisible: false })
