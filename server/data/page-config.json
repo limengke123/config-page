@@ -34,19 +34,22 @@
             "selectValue": [
               {
                 "displayValue": "张三",
-                "value": "zhangsan",
-                "defaulted": true
+                "value": "zhangsan"
               },
               {
                 "displayValue": "李四",
-                "value": "lisi"
+                "value": "lisi",
+                "disabled": true
               },
               {
                 "displayValue": "小黑",
                 "value": "hei"
               }
             ],
-            "defaultValue": "zhangsan"
+            "defaultValue": "zhangsan",
+            "otherProps": {
+              "disabled": false
+            }
           },
           {
             "name": "基本信息",
@@ -91,8 +94,7 @@
                   "selectValue": [
                     {
                       "displayValue": "张三",
-                      "value": "zhangsan",
-                      "defaulted": true
+                      "value": "zhangsan"
                     },
                     {
                       "displayValue": "李四",
@@ -159,8 +161,7 @@
                         "selectValue": [
                           {
                             "displayValue": "张三",
-                            "value": "zhangsan",
-                            "defaulted": true
+                            "value": "zhangsan"
                           },
                           {
                             "displayValue": "李四",
@@ -219,9 +220,11 @@
                         "fields": "numberTest",
                         "isRequired": false,
                         "type": "input-number",
-                        "min": 2,
-                        "max": 5,
-                        "defaultValue": 3
+                        "defaultValue": 3,
+                        "otherProps": {
+                          "min": 2,
+                          "max": 5
+                        }
                       },
                       {
                         "name": "下拉框测试",
@@ -231,8 +234,7 @@
                         "selectValue": [
                           {
                             "displayValue": "张三",
-                            "value": "zhangsan",
-                            "defaulted": true
+                            "value": "zhangsan"
                           },
                           {
                             "displayValue": "李四",
@@ -253,8 +255,7 @@
                         "selectValue": [
                           {
                             "displayValue": "张三1",
-                            "value": "zhangsan1",
-                            "defaulted": true
+                            "value": "zhangsan1"
                           },
                           {
                             "displayValue": "李四2",
@@ -351,8 +352,6 @@
                   "fields": "numberTest",
                   "isRequired": false,
                   "type": "input-number",
-                  "min": 2,
-                  "max": 5,
                   "defaultValue": 3
                 },
                 {
@@ -363,8 +362,7 @@
                   "selectValue": [
                     {
                       "displayValue": "张三",
-                      "value": "zhangsan",
-                      "defaulted": true
+                      "value": "zhangsan"
                     },
                     {
                       "displayValue": "李四",
@@ -385,8 +383,7 @@
                   "selectValue": [
                     {
                       "displayValue": "张三1",
-                      "value": "zhangsan1",
-                      "defaulted": true
+                      "value": "zhangsan1"
                     },
                     {
                       "displayValue": "李四2",
@@ -540,8 +537,7 @@
             "selectValue": [
               {
                 "displayValue": "张三",
-                "value": "zhangsan",
-                "defaulted": true
+                "value": "zhangsan"
               },
               {
                 "displayValue": "李四",
@@ -600,8 +596,6 @@
             "fields": "numberTest",
             "isRequired": false,
             "type": "input-number",
-            "min": 2,
-            "max": 5,
             "defaultValue": 3
           },
           {
@@ -612,8 +606,7 @@
             "selectValue": [
               {
                 "displayValue": "张三",
-                "value": "zhangsan",
-                "defaulted": true
+                "value": "zhangsan"
               },
               {
                 "displayValue": "李四",
@@ -634,8 +627,7 @@
             "selectValue": [
               {
                 "displayValue": "张三1",
-                "value": "zhangsan1",
-                "defaulted": true
+                "value": "zhangsan1"
               },
               {
                 "displayValue": "李四2",
@@ -829,8 +821,6 @@
             "fields": "numberTest",
             "isRequired": false,
             "type": "input-number",
-            "min": 2,
-            "max": 5,
             "defaultValue": 3
           },
           {
@@ -841,8 +831,7 @@
             "selectValue": [
               {
                 "displayValue": "张三",
-                "value": "zhangsan",
-                "defaulted": true
+                "value": "zhangsan"
               },
               {
                 "displayValue": "李四",
@@ -863,8 +852,7 @@
             "selectValue": [
               {
                 "displayValue": "张三1",
-                "value": "zhangsan1",
-                "defaulted": true
+                "value": "zhangsan1"
               },
               {
                 "displayValue": "李四2",
@@ -1012,8 +1000,6 @@
             "fields": "numberTest",
             "isRequired": false,
             "type": "input-number",
-            "min": 2,
-            "max": 5,
             "defaultValue": 3
           },
           {
@@ -1024,8 +1010,7 @@
             "selectValue": [
               {
                 "displayValue": "张三",
-                "value": "zhangsan",
-                "defaulted": true
+                "value": "zhangsan"
               },
               {
                 "displayValue": "李四",
@@ -1046,8 +1031,7 @@
             "selectValue": [
               {
                 "displayValue": "张三1",
-                "value": "zhangsan1",
-                "defaulted": true
+                "value": "zhangsan1"
               },
               {
                 "displayValue": "李四2",
@@ -1195,8 +1179,6 @@
             "fields": "numberTest",
             "isRequired": false,
             "type": "input-number",
-            "min": 2,
-            "max": 5,
             "defaultValue": 3
           },
           {
@@ -1207,8 +1189,7 @@
             "selectValue": [
               {
                 "displayValue": "张三",
-                "value": "zhangsan",
-                "defaulted": true
+                "value": "zhangsan"
               },
               {
                 "displayValue": "李四",
@@ -1229,8 +1210,7 @@
             "selectValue": [
               {
                 "displayValue": "张三1",
-                "value": "zhangsan1",
-                "defaulted": true
+                "value": "zhangsan1"
               },
               {
                 "displayValue": "李四2",
@@ -1378,8 +1358,6 @@
             "fields": "numberTest",
             "isRequired": false,
             "type": "input-number",
-            "min": 2,
-            "max": 5,
             "defaultValue": 3
           },
           {
@@ -1390,8 +1368,7 @@
             "selectValue": [
               {
                 "displayValue": "张三",
-                "value": "zhangsan",
-                "defaulted": true
+                "value": "zhangsan"
               },
               {
                 "displayValue": "李四",
@@ -1412,8 +1389,7 @@
             "selectValue": [
               {
                 "displayValue": "张三1",
-                "value": "zhangsan1",
-                "defaulted": true
+                "value": "zhangsan1"
               },
               {
                 "displayValue": "李四2",
@@ -1561,8 +1537,6 @@
             "fields": "numberTest",
             "isRequired": false,
             "type": "input-number",
-            "min": 2,
-            "max": 5,
             "defaultValue": 3
           },
           {
@@ -1573,8 +1547,7 @@
             "selectValue": [
               {
                 "displayValue": "张三",
-                "value": "zhangsan",
-                "defaulted": true
+                "value": "zhangsan"
               },
               {
                 "displayValue": "李四",
@@ -1595,8 +1568,7 @@
             "selectValue": [
               {
                 "displayValue": "张三1",
-                "value": "zhangsan1",
-                "defaulted": true
+                "value": "zhangsan1"
               },
               {
                 "displayValue": "李四2",

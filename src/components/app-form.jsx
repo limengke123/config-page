@@ -27,31 +27,30 @@ const ruleToChildren = (rule) => {
     } else if (rule.type === 'text') {
         subChildren = <span className="ant-form-text">{rule.defaultValue}</span>
     } else if (rule.type === 'input-number') {
-        /**
-         * 数字输入框的默认值
-         * min 0
-         * max 10
-         * */
-        const defaultMin = 0
-        const defaultMax = 10
-        subChildren = <InputNumber min={rule.min || defaultMin} max={rule.max || defaultMax}/>
+        subChildren = <InputNumber {...rule.otherProps}/>
     } else if (rule.type === 'select') {
         subChildren = (
-            <Select>
+            <Select {...rule.otherProps}>
                 {
-                    rule.selectValue.map(item => (
-                        <Option key={item.value} value={item.value}>{item.displayValue}</Option>
-                    ))
+                    rule.selectValue.map(item => {
+                        const {displayValue, ...otherProps} = item
+                        return (
+                            <Option key={otherProps.value} {...otherProps}>{displayValue}</Option>
+                        )
+                    })
                 }
             </Select>
         )
     } else if (rule.type === 'select-multiple') {
         subChildren = (
-            <Select mode="multiple">
+            <Select mode="multiple" {...rule.otherProps}>
                 {
-                    rule.selectValue.map(item => (
-                        <Option key={item.value} value={item.value}>{item.displayValue}</Option>
-                    ))
+                    rule.selectValue.map(item => {
+                        const {displayValue, ...otherProps} = item
+                        return (
+                            <Option key={otherProps.value} {...otherProps}>{displayValue}</Option>
+                        )
+                    })
                 }
             </Select>
         )
@@ -67,9 +66,12 @@ const ruleToChildren = (rule) => {
         subChildren = (
             <RadioGroup>
                 {
-                    rule.selectValue.map(item => (
-                        <Radio key={item.value} value={item.value}>{item.displayValue}</Radio>
-                    ))
+                    rule.selectValue.map(item => {
+                        const {displayValue, ...otherProps} = item
+                        return (
+                            <Radio key={otherProps.value} {...otherProps}>{displayValue}</Radio>
+                        )
+                    })
                 }
             </RadioGroup>
         )
@@ -77,16 +79,18 @@ const ruleToChildren = (rule) => {
         subChildren = (
             <RadioGroup>
                 {
-                    rule.selectValue.map(item => (
-                        <RadioButton key={item.value} value={item.value}>{item.displayValue}</RadioButton>
-                        // <RadioButton key={item.value} value={item.value}>{item.displayValue}</RadioButton>
-                    ))
+                    rule.selectValue.map(item => {
+                        const {displayValue, ...otherProps} = item
+                        return (
+                            <RadioButton key={otherProps.value} {...otherProps}>{displayValue}</RadioButton>
+                        )
+                    })
                 }
             </RadioGroup>
         )
     } else if (rule.type === 'date-picker') {
         subChildren = (
-            <DatePicker />
+            <DatePicker {...rule.otherProps}/>
         )
     }
 

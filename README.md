@@ -114,7 +114,7 @@
 | ------ | ------ | ------ | ------ | ------ |
 | name | string | / | 是 | 注明该配置项的名称 |
 | fields | string | / | 是 | 注明该配置项实际字段名称 |
-| type | enum<`typeShap`> | / | 是 | 注明该配置项展示表单形式 |
+| type | enum | / | 是 | 注明该配置项展示表单形式 |
 | isRequired | boolean | false | 否 | 注明该表单是否为必须项 |
 | requiredMessage | string | "输入必选项" | 否 | 当 `isRequired` 为 `true` 时, 校验表单时表单未填写显示的报错文字 |
 | defaultValue | Any | "" | 否 | 注明该配置项的默认值，依据 `type` 类型给定指定默认值 |
@@ -122,7 +122,7 @@
 
 这里的 `type` 属性提供了 [`antd`](https://ant.design/components/form-cn/) 组件库有的几种表单组件,具体如下: 
 
-typeShap:
+typeShapes:
 
 1. "input" 输入框
 2. "input-number" 数字输入框，此时，在同级上新增接受两个参数：
@@ -132,7 +132,7 @@ typeShap:
     * selectValue `{@type=Array}` `{@defaultValue=null}` 下拉框的可选项, `selectValue` 接受如下参数:
         * "displayValue" `{@type=String}` 下拉框选项显示值
         * "value" `{@type=String}` 下拉框实际返回值
-        * "defaulted" `{@type=Boolean}` 是否默认选中该项
+        * "...props" `{@type=Any}` 其他参数,参照 `antd` 的 `select.option` 参数
 4. "select-multiple" 多选下拉框，参考 `select` 的参数
 5. "switch" 开关
 6. "radio-group" 单选框，功能和 `select` 类似，参数也和 `select` 类似
