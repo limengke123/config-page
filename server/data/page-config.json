@@ -21,7 +21,10 @@
             "fields": "isShow",
             "isRequired": false,
             "type": "switch",
-            "defaultValue": true
+            "defaultValue": true,
+            "otherProps": {
+              "disabled": true
+            }
           },
           {
             "name": "的撒",
@@ -50,7 +53,10 @@
             "fields": "infos",
             "isRequired": false,
             "type": "input",
-            "defaultValue": "default infos"
+            "defaultValue": "default infos",
+            "otherProps" :{
+              "disabled": true
+            }
           }
         ],
         "page": {

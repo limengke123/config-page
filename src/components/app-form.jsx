@@ -23,7 +23,7 @@ const ruleToChildren = (rule) => {
         })
     }
     if (rule.type === 'input') {
-        subChildren = <Input/>
+        subChildren = <Input {...rule.otherProps}/>
     } else if (rule.type === 'text') {
         subChildren = <span className="ant-form-text">{rule.defaultValue}</span>
     } else if (rule.type === 'input-number') {
@@ -56,7 +56,7 @@ const ruleToChildren = (rule) => {
             </Select>
         )
     } else if (rule.type === 'switch') {
-        subChildren = <Switch/>
+        subChildren = <Switch {...rule.otherProps}/>
         fieldsConfig.valuePropName = 'checked'
         /**
          * 用如下注释的方法也能实现

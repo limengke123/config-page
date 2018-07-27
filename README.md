@@ -114,6 +114,16 @@
 * "requiredMessage"  `{@type=String}` `{@defaultValue="输入必选项"}` 注明未填写时，提示报错文字
 * "type" `{@type=Enum<input, input-number, select, select-multiple, switch, radio-group, radio-button, date-picker, text>}` `{@defaultValue=""}` **必须**，注明该配置项展示表单形式
 * "defaultValue" `{@type=Any}` 注明该配置项的默认值，依据 `type` 类型给定指定默认值
+* "otherProps" `{@type=Any}` 如果需要使用 [`antd`](http://ant-design.gitee.io/docs/react/introduce-cn) 组件的一些其他属性, 比如设置 `disabled` 为 `true` 让表单无法修改,注意这里还是不要把 `required` 等之前定义过的属性在这个字段里重复声明。
+
+|字段名称|类型值|默认值|是否必须|其他说明|
+|---|---|---|---|---|
+|name|string|""|<font color=#A52A2A>是</font>|注明该配置项的名称|
+||||||
+||||||
+||||||
+||||||
+||||||
 
 这里的 `type` 属性提供了 [`antd`](https://ant.design/components/form-cn/) 组件库有的几种表单组件,具体如下: 
 

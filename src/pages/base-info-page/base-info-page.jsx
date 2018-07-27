@@ -99,7 +99,6 @@ class BaseInfo extends React.Component {
     }
 
     componentDidMount () {
-        console.log('base-info-page did mounted')
         let url = process.env.REACT_APP_IS_NODE ? '/api/getConfig' : '/cfg/lmk/operate.php?operate=read'
         axios.get(url)
             .then(resp => {
