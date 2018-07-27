@@ -114,13 +114,15 @@
 | ------ | ------ | ------ | ------ | ------ |
 | name | string | / | 是 | 注明该配置项的名称 |
 | fields | string | / | 是 | 注明该配置项实际字段名称 |
-| type | enum <`input`, `input-number`, `select`, `select-multiple`, `switch`, `radio-group`, `radio-button`, `date-picker`, `text`> | / | 是 | 注明该配置项展示表单形式 |
+| type | enum<`typeShap`> | / | 是 | 注明该配置项展示表单形式 |
 | isRequired | boolean | false | 否 | 注明该表单是否为必须项 |
 | requiredMessage | string | "输入必选项" | 否 | 当 `isRequired` 为 `true` 时, 校验表单时表单未填写显示的报错文字 |
 | defaultValue | Any | "" | 否 | 注明该配置项的默认值，依据 `type` 类型给定指定默认值 |
 | otherProps | Any | null | 否 | 如果需要使用 [`antd`](http://ant-design.gitee.io/docs/react/introduce-cn) 组件的一些其他属性, 比如设置 `disabled` 为 `true` 让表单无法修改,注意这里还是不要把 `required` 等之前定义过的属性在这个字段里重复声明。 |
 
 这里的 `type` 属性提供了 [`antd`](https://ant.design/components/form-cn/) 组件库有的几种表单组件,具体如下: 
+
+typeShap:
 
 1. "input" 输入框
 2. "input-number" 数字输入框，此时，在同级上新增接受两个参数：
