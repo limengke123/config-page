@@ -7,7 +7,8 @@ import AppPage from '../components/app-page'
 const basename = process.env.REACT_APP_IS_NODE
     ? process.env.REACT_APP_BASE_NAME
         ? process.env.REACT_APP_BASE_NAME
-        : '/config'
+        // : '/config' // 这里先去除 config 前缀
+        : '/'
     : '/'
 // const basename = '/config'
 

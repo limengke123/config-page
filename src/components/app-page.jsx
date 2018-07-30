@@ -72,6 +72,7 @@ export default class AppPage extends React.Component {
                         fields[item][_item] = processTimeData(this.state.fields[item][_item])
                     })
                 })
+                console.log(fields)
                 let url = process.env.REACT_APP_IS_NODE
                     ? '/api/saveConfig'
                     : '/cfg/lmk/operate.php?operate=edit'

@@ -20,10 +20,12 @@ const multer_head = multer({
     storage
 })
 
+// const uploadMiddleware = async (ctx, next) => {
+//     return multer_head.single('head')
+// }
 const uploadMiddleware = multer_head.single('head')
 
 const pageConfigPath = './data/page-config'
-
 
 const pageConfig = async (ctx) => {
     ctx.type = 'application/json'

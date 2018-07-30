@@ -64,8 +64,24 @@
           {
             "name": "上传组件",
             "fields": "head",
-            "isRequired": "false",
-            "type": "upload"
+            "isRequired": true,
+            "type": "upload",
+            "defaultValue": [{
+              "uid": -1,
+              "name": "default.png",
+              "status": "done",
+              "url": "/images/head_1.jpg"
+            }]
+          },
+          {
+            "name": "组件测试",
+            "fields": "appIcon",
+            "isRequired": true,
+            "type": "upload",
+            "defaultValue": [{
+              "uid": -2,
+              "url": "/images/head_1.png"
+            }]
           }
         ],
         "page": {

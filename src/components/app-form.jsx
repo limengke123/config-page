@@ -95,8 +95,11 @@ const ruleToChildren = (rule) => {
         )
     } else if (rule.type === 'upload') {
         subChildren = (
-            <UploadForm/>
+            <UploadForm {...rule.otherProps} name={rule.fields}/>
         )
+        fieldsConfig = {
+            valuePropName: 'fileList'
+        }
     }
 
     return {
@@ -153,13 +156,6 @@ class AppForm extends React.Component {
                                 {
                                     subConfig.rules.map(rule => {
                                             const {subChildren, fieldsConfig} = ruleToChildren(rule)
-                                            if (rule.type === 'upload') {
-                                                return (
-                                                    <FormItem {...formItemLayout} label={rule.name} key={rule.name}>
-                                                        {subChildren}
-                                                    </FormItem>
-                                                )
-                                            }
                                             return (
                                                 <FormItem {...formItemLayout} label={rule.name} key={rule.name}>
                                                     {getFieldDecorator(`${subConfig.fields}.${rule.fields}`, fieldsConfig)(subChildren)}
