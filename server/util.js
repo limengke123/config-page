@@ -59,7 +59,31 @@ const setConfigData = (obj, fields, data, separator = '.') => {
     return obj
 }
 
+/**
+ * 去除原來和 $$ 耦合部分
+ * */
+const setConfigData2 = (obj, fields, data, separator = '.') => {
+    const separators = fields.split(separator)
+    separators.reduce((accu, currentKey, index, array) => {
+        if (!accu[currentKey]) {
+            accu[currentKey] = {}
+        }
+        if(index === array.length - 1) {
+            // 最后一次赋值,直接赋值有问题,外层会直接把内层配置好的属性直接覆盖掉
+            // 这里做一个约定,以$$开头的属性为内层配置属性,不允许被覆盖掉
+            // _由于在路由中用到了这个变量,所以这里就不能用_了
+            // const keys = accu[currentKey] && Object.keys(accu[currentKey]).filter(key => key.indexOf('$$') === 1)[0]
+            const keys = Object.keys(data)
+            // const keys = Object.keys(accu[currentKey])
+            accu[currentKey] = data
+        }
+        return accu[currentKey]
+    }, obj)
+    return obj
+}
+
 module.exports =  {
     getConfigData,
     setConfigData,
+    setConfigData2,
 }

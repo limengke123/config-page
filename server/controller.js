@@ -3,7 +3,7 @@ const path = require('path')
 const util = require('util')
 const multer = require('koa-multer')
 const readFile = util.promisify(fs.readFile)
-const {getConfigData, setConfigData} = require('./util')
+const {getConfigData, setConfigData, setConfigData2} = require('./util')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -41,7 +41,7 @@ const saveConfig = async (ctx) => {
     let config = await readFile(path.resolve(__dirname, './data/config.json'), {encoding: 'utf8'})
     config = JSON.parse(config)
     if (appName) {
-        setConfigData(config, appName, value)
+        setConfigData2(config, appName, value)
     } else {
         config = value
     }

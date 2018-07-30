@@ -109,6 +109,14 @@ const deepMerge = (obj1, obj2) => {
             deepMerge(obj1[key], obj2[key]) : obj2[key] === void 0 ?
                 obj1[key]: obj2[key]
     }
+    for(key in obj2) {
+        /**
+         * 反向合并一下，把 $$ 前綴的子配置頁面拿回來
+         * */
+        if (!obj1.hasOwnProperty(key)) {
+            obj1[key] = obj2[key]
+        }
+    }
     return obj1
 }
 

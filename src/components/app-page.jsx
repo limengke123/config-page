@@ -52,6 +52,7 @@ export default class AppPage extends React.Component {
             if (!resp.data) resp.data = {}
             if (!resp.data.data) resp.data.data = {}
             let data = deepMerge(fields, resp.data.data)
+            console.log(data, resp.data.data)
             if (data) {
                 this.setState({
                     fields: data,
