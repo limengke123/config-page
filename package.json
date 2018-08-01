@@ -61,6 +61,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "start:node": "cross-env REACT_APP_IS_NODE=1 npm start",
+    "node-server": "node server",
     "build": "node scripts/build.js",
     "build:node": "cross-env REACT_APP_IS_NODE=1 npm run build",
     "test": "node scripts/test.js --env=jsdom"
