@@ -139,6 +139,7 @@ typeShapes:
 7. "radio-button" 单选按钮，功能和 `radio-group` 类似，参数参考 `radio-group`
 8. "date-picker" 日期选择器，注意：传入的 `defaultValue` 的格式必须类似于 `"2018-07-15"`，月份和日期需补足两位
 9. "text" 纯文字显示
+10. "upload" 上传组件，目前就 `node.js` 服务实现了该功能
 
 具体表单组件展示如图：
 
