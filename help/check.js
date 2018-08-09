@@ -31,6 +31,7 @@ const typeMap = [
     'radio-button',
     'date-picker',
     'text',
+    'upload',
 ]
 
 const warnings = []
@@ -403,7 +404,6 @@ async function check () {
     return {
         result
     }
-
 }
 
 ;(async function () {
@@ -423,7 +423,6 @@ async function check () {
         console.log(chalk.green.bold(` ${path} 的配置文件 校验通过! , 存在一些不影响使用的小警告\n`))
     }
 })().catch((e) => {
-    console.log(chalk.red(e))
+    console.log(chalk.red.bold(` ${path} 的配置文件 校验未通过! \n`))
+    console.log(chalk.yellow(e))
 })
-
-
